@@ -1,5 +1,3 @@
-content = """# EXPLAINABILITY.md
-
 ## 1. System Overview
 
 RoleLens is a deterministic, evidence-based resume analysis application built with Python and FastAPI. It extracts candidate information from uploaded resumes, evaluates detected skills against a recruiter-defined job rubric, calculates employment duration, and generates traceable analysis reports.
@@ -41,4 +39,74 @@ The parser and skill-processing components in `app/parser.py` and `app/skills.py
 
 The matching process also receives a validated job rubric. This rubric contains required and preferred skills, skill aliases, skill weights, target experience, and an experience budget. The Pydantic models in `app/models.py` define the input contracts, validate data, and enforce model invariants.
 
-Employment calculations use dated employment evidence rather than accepting a candidate's self-reported total experience as
+Employment calculations use dated employment evidence rather than accepting a candidate's self-reported total experience as proof. Education and project periods are excluded from the employment-month calculation.
+
+## 4. Processing and Implementation
+
+The application follows a defined processing pipeline:
+
+1. **Document validation:** Check the uploaded file's format signature and enforce extraction limits.
+2. **Text extraction:** Extract supported PDF, DOCX, and TXT content.
+3. **Candidate parsing:** Identify names, email addresses, skills, aliases, and employment information.
+4. **Evidence classification:** Associate detected skills with their source clauses and classify the strength of the evidence.
+5. **Experience calculation:** Interpret employment dates and calculate unique employment months.
+6. **Rubric validation:** Validate job requirements, weights, and experience settings.
+7. **Deterministic matching:** Apply the evidence factors, skill weights, and experience formula.
+8. **Analysis validation:** Build a versioned analysis model and check its score consistency.
+9. **Report generation:** Produce HTML, CSV, and JSON representations of the analysis.
+10. **Delivery and persistence:** Return results through the FastAPI interface or CLI and support local JSON storage and interchange.
+
+The `app/service.py` module provides shared orchestration for the web application, command-line interface, and evaluation workflow. The `app/main.py` and `app/cli.py` modules provide the HTTP and command-line entry points.
+
+## 5. Employment Experience Reasoning
+
+Employment dates are interpreted as half-open month intervals. Past employment end months are treated as inclusive, while Present employment counts completed months.
+
+The implementation unions overlapping employment intervals so that concurrent jobs do not cause the same calendar months to be counted more than once. Education and project periods are excluded from this calculation.
+
+When only years are available, January boundaries are used and an uncertainty warning is recorded. A resume statement such as "15 years of experience" does not replace the dated employment evidence.
+
+The resulting total employment duration is not treated as verified experience in any particular skill. Skill-specific evidence and total employment duration remain separate parts of the analysis.
+
+## 6. Evidence and Traceability
+
+RoleLens preserves evidence supporting extracted candidate details and skill classifications. Source line references, section context, evidence strength, source hash, and analysis date help a reviewer identify where the system obtained its findings.
+
+The system distinguishes between a skill that is demonstrated through an action-oriented clause and a skill that is merely listed or associated with learning. This distinction affects the numerical contribution of each skill to the match score.
+
+The application provides an auditable calculation rather than an unexplained recommendation. Reviewers can inspect the skill evidence, configured weights, experience contribution, and resulting score to understand how the analysis was produced.
+
+## 7. Reports, Validation, and Storage
+
+The `app/reports.py` module and `app/templates/` directory generate HTML reports and support safe CSV and JSON output. HTML rendering uses escaping, and CSV output applies protections against spreadsheet formula injection.
+
+The `app/storage.py` module supports JSON interchange, schema validation, consistency checks, and atomic local JSON persistence. The versioned analysis model preserves the original rubric and analysis date when reports are exported and imported.
+
+The public web application deliberately does not maintain a shared server-side report library. Users can export and reopen JSON reports without exposing one visitor's report to another. The application does not claim durable cloud storage because serverless filesystems may be ephemeral.
+
+The repository's tests cover document uploads, independently calculated scores, overlapping employment dates, candidate extraction, aliases, substring collisions, JSON round trips, malformed imports, path traversal, permission errors, HTML escaping, CSV formula handling, HTTP privacy headers, and offline CLI operation.
+
+## 8. Limitations
+
+RoleLens uses deterministic parsing and rule-based evidence classification. It does not understand every possible resume structure or the full semantic meaning of every sentence, and its English-centric heuristics may miss skills or misclassify unusual wording.
+
+Scanned PDFs require external OCR before their contents can be analyzed. Extracted claims are not independently verified, and the application cannot establish whether a candidate genuinely possesses a listed skill or performed a described responsibility.
+
+The employment calculation estimates total dated employment duration. It does not prove continuous employment, professional competence, or the number of years spent using a specific technology. Year-only dates also introduce uncertainty.
+
+The evidence factors, skill weights, and recommendation thresholds are configurable design choices rather than scientifically validated hiring criteria. A match score must not be interpreted as a probability of hiring success, job performance, or candidate suitability.
+
+The public application does not provide a shared persistent report library. JSON report files are portable data and should not be treated as authenticated records merely because they pass schema validation.
+
+The system is not an autonomous hiring or rejection system. Recruiters and authorized human reviewers must inspect the source evidence, consider contextual information, verify candidate claims, and make all employment decisions. RoleLens should be used as an assistive analysis tool rather than a replacement for human judgment.
+
+## 9. Human Oversight
+
+The final responsibility for interpreting the analysis rests with the human reviewer. Recruiters should verify important evidence against the original resume, examine missing or uncertain information, and assess whether the configured job rubric reflects the actual position.
+
+A numerical score or automated recommendation must never be the sole basis for rejecting or selecting a candidate. The purpose of RoleLens is to make resume analysis more structured, traceable, and explainable while keeping employment decisions under human control.
+"""
+path = "/mnt/data/EXPLAINABILITY.md"
+with open(path, "w", encoding="utf-8", newline="\n") as f:
+    f.write(content)
+print(f"Created {path} ({len(content)} characters)")
