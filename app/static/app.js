@@ -109,7 +109,13 @@ byId("analysis-form").addEventListener("submit", async (event) => {
             `Requirement line ${index + 1}: use skill | required or preferred | weight 1–10.`,
           );
         }
-        return { skill: parts[0], importance: parts[1], weight: Number(parts[2]) };
+        const alternatives = parts[0].split(/\s+OR\s+/i).map((term) => term.trim());
+        return {
+          skill: parts[0],
+          importance: parts[1],
+          weight: Number(parts[2]),
+          ...(alternatives.length > 1 ? { alternatives } : {}),
+        };
       });
     const file = byId("resume-file").files[0];
     if (file && file.size > 2 * 1024 * 1024) throw new Error("Maximum resume file size is 2 MiB.");

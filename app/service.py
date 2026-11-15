@@ -9,5 +9,6 @@ from app.parser import parse_resume
 
 def analyze(text: str, job: Job, as_of: date, source_type: str = "text") -> Analysis:
     """Parse once, match once; inject the clock for reproducible comparisons."""
-    resume = parse_resume(text, [item.skill for item in job.requirements], as_of, source_type)
+    terms = [term for item in job.requirements for term in item.terms]
+    resume = parse_resume(text, terms, as_of, source_type)
     return match_resume(resume, job, as_of)

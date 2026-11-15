@@ -33,6 +33,24 @@ function setup(fetch) {
   return dom;
 }
 
+test("OR syntax reaches Python as one alternative group", async () => {
+  const dom = setup(async (url, options) => {
+    const job = JSON.parse(options.body.get("job_json"));
+    assert.equal(job.requirements.length, 1);
+    assert.deepEqual(job.requirements[0].alternatives, ["Java", "Python"]);
+    return { ok: true, json: async () => result };
+  });
+  const doc = dom.window.document;
+  doc.getElementById("requirements").value = "Java OR Python | required | 3";
+  doc.getElementById("analysis-form").dispatchEvent(
+    new dom.window.Event("submit", { cancelable: true }),
+  );
+  await settle();
+  assert.equal(doc.getElementById("error").hidden, true);
+  assert.equal(doc.getElementById("report-output").hidden, false);
+  dom.window.close();
+});
+
 test("sample loads structured rubric and resume without silently analyzing", async () => {
   let calls=0;
   const dom=setup(async(url)=>{calls++;assert.equal(url,"/api/demo");return {ok:true,json:async()=>demo};});

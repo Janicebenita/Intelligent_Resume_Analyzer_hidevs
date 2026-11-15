@@ -26,7 +26,10 @@ def match_resume(resume: Resume, job: Job, as_of: date) -> Analysis:
     rows = []
     missing = []
     for requirement in job.requirements:
-        evidence = lookup.get(canonical(requirement.skill))
+        candidates = [
+            lookup[canonical(term)] for term in requirement.terms if canonical(term) in lookup
+        ]
+        evidence = max(candidates, key=lambda item: FACTORS[item.status], default=None)
         status = evidence.status if evidence else "not_found"
         factor = FACTORS[status]
         points = skills_budget * requirement.weight / total_weight * factor
@@ -39,6 +42,9 @@ def match_resume(resume: Resume, job: Job, as_of: date) -> Analysis:
                 factor=factor,
                 points=round(points, 4),
                 evidence=evidence.evidence if evidence else [],
+                matched_alternative=(
+                    evidence.skill if requirement.alternatives and evidence and factor > 0 else None
+                ),
             )
         )
         if requirement.importance == "required" and status in {"not_found", "negated", "learning"}:

@@ -16,6 +16,26 @@ class Requirement(Model):
     skill: str = Field(min_length=1, max_length=60)
     importance: Literal["required", "preferred"] = "required"
     weight: int = Field(default=1, ge=1, le=10, strict=True)
+    alternatives: list[str] = Field(default_factory=list, max_length=8)
+
+    @field_validator("alternatives")
+    @classmethod
+    def clean_alternatives(cls, values: list[str]) -> list[str]:
+        from app.skills import canonical
+
+        if len(values) == 1:
+            raise ValueError("An OR group needs at least two alternatives.")
+        cleaned = [cls.clean_skill(value) for value in values]
+        if any(len(value) > 60 for value in cleaned):
+            raise ValueError("Alternative skills must be at most 60 characters.")
+        if len({canonical(value) for value in cleaned}) != len(cleaned):
+            raise ValueError("OR alternatives must be unique, including aliases.")
+        return cleaned
+
+    @property
+    def terms(self) -> list[str]:
+        """A group is satisfied by any listed member, not by its display label."""
+        return self.alternatives or [self.skill]
 
     @field_validator("skill")
     @classmethod
@@ -120,11 +140,12 @@ class MatchRow(Model):
     factor: float = Field(ge=0, le=1)
     points: float = Field(ge=0, le=100)
     evidence: list[Evidence]
+    matched_alternative: str | None = None
 
 
 class Analysis(Model):
     schema_version: Literal["1.0"] = "1.0"
-    algorithm_version: Literal["rolelens-1.0"] = "rolelens-1.0"
+    algorithm_version: Literal["rolelens-1.0", "rolelens-1.1"] = "rolelens-1.1"
     id: str = Field(pattern=r"^[a-f0-9]{32}$")
     created_at: datetime
     as_of: date

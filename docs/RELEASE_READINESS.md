@@ -34,3 +34,7 @@ The demo uses actual browser screenshots and an installed Windows synthetic voic
 The actual Git-triggered deployment for documentation commit `a0ef9fdccfe6518d2c4bd0ac34395ebce1df6c9a` is `dpl_AwYGBTzY5ToxmmHgcEtJc7m9N2zL`, production READY. GitHub reported the Vercel check successful, and CI run 43725927174 passed. The public Python HTTP smoke test passed after this deployment.
 
 README artwork introduced a line-length violation during a spacing adjustment. It was corrected in commit `43f3838`, and the complete quality/container workflow passed in run 43728072902. The final pacing change holds every stage for 6,000 ms and transitions for 900 ms; the encoded GIF was inspected and verified to have ten reading holds and a 69,000 ms loop. Subsequent presentation-only pushes remain subject to the same CI checks.
+
+## Current local update, 2026-11-15
+
+Algorithm rolelens-1.1 adds OR groups credited once, selected-alternative evidence, DSA/OOP aliases, controlled internship/project headings and shared-year month ranges. The local suite passes 124 Python tests at 98.12% line/branch coverage and seven DOM tests. The 12-case authored evaluation still passes. Local browser verification covers PDF upload, OR scoring, required-gap follow-ups, five fictional internship months, JSON/CSV/HTML export, JSON reopen and invalid-file recovery. A refreshed narrated demo and production verification are in progress. No real resume data is included in these examples.

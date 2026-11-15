@@ -21,7 +21,17 @@ def csv_report(report: Analysis) -> str:
     """Export requirement evidence, neutralizing formula-like cell prefixes."""
     stream = io.StringIO(newline="")
     writer = csv.writer(stream)
-    writer.writerow(["Requirement", "Importance", "Status", "Weight", "Points", "Evidence"])
+    writer.writerow(
+        [
+            "Requirement",
+            "Importance",
+            "Status",
+            "Weight",
+            "Points",
+            "Matched alternative",
+            "Evidence",
+        ]
+    )
     for row in report.rows:
         values = [
             row.skill,
@@ -29,6 +39,7 @@ def csv_report(report: Analysis) -> str:
             row.status,
             str(row.weight),
             str(row.points),
+            row.matched_alternative or "",
             " | ".join(f"L{e.line}: {e.text}" for e in row.evidence),
         ]
         writer.writerow(

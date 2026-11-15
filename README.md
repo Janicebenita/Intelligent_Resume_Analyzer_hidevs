@@ -46,9 +46,9 @@ The [public YouTube walkthrough](https://youtu.be/zbdmmfNSYxw) on Janice Benita'
 |---|---|
 | 📄 Extract resume information | PDF text, DOCX paragraphs/tables/headers, UTF-8/UTF-16 TXT; names, email, skills and employment |
 | 🔗 Inspect the evidence | 1-based line references, section context, evidence strength, source hash and analysis date |
-| ⚖️ Configure the rubric | Required/preferred skills, alias-aware duplicate checks, per-skill weights, experience target and budget |
+| ⚖️ Configure the rubric | Required/preferred skills, OR alternatives scored once, alias-aware duplicate checks, per-skill weights, experience target and budget |
 | 🧮 Understand each point | Full action evidence, partial mentions/learning, zero for absent or negated skills |
-| 🗓️ Audit employment | Month/year/numeric/ISO date ranges, current roles, date clipping and overlap removal |
+| 🗓️ Audit employment | Month/year/numeric/ISO and shared-year internship ranges, current roles, date clipping and overlap removal |
 | 📦 Save and reopen | Versioned JSON, schema validation and recalculated score consistency on import; atomic local saves |
 | 📝 Share a professional report | Escaped standalone HTML for Print/Save as PDF, JSON, spreadsheet-safe CSV |
 | 🧯 Recover from bad input | Typed errors for damaged, encrypted, empty, scanned, oversized or unsupported files |
@@ -95,10 +95,12 @@ Open **http://127.0.0.1:7860**. Choose **Explore sample**, inspect/edit the role
 Requirements use one line each:
 
 ```text
-Python | required | 3
+Java OR Python | required | 3
 FastAPI | required | 2
 Docker | preferred | 1
 ```
+
+Use `OR` between alternative skills. A group earns points once using its strongest supported member; the report names that member. DSA/OOP aliases and standard internship headings are supported.
 
 The importance label flags gaps; the numeric weight controls points. A role without a minimum experience target automatically allocates all points to skills.
 

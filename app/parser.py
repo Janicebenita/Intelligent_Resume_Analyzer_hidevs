@@ -18,12 +18,32 @@ SECTIONS = {
         "employment",
         "employment history",
         "work history",
+        "internships",
+        "internship experience",
+        "technical internship experience",
+        "relevant experience",
     },
-    "projects": {"projects", "selected projects", "personal projects"},
+    "projects": {
+        "projects",
+        "selected projects",
+        "personal projects",
+        "academic projects",
+        "software projects",
+        "selected software projects",
+        "project experience",
+        "selected software projects & external client work",
+    },
     "education": {"education", "academic qualifications", "qualifications"},
     "skills": {"skills", "technical skills", "core competencies", "technologies"},
     "summary": {"summary", "profile", "professional summary", "objective"},
     "certifications": {"certifications", "certificates"},
+    "other": {
+        "achievements",
+        "research",
+        "publications",
+        "awards",
+        "achievements, research & technical learning",
+    },
 }
 MONTHS = {
     name: index
@@ -44,6 +64,11 @@ RANGE = re.compile(
     rf"(?P<end>{DATE_TOKEN}|present|current|now)\b(?![\w/]|-\d)",
     re.I,
 )
+SHARED_YEAR_RANGE = re.compile(
+    rf"(?<!\w)(?P<start>{MONTH_TOKEN})\s*[-–—\ufffd]\s*"
+    rf"(?P<end>{MONTH_TOKEN})\s+(?P<year>(?:19|20)\d{{2}})\b",
+    re.I,
+)
 EMAIL = re.compile(
     r"(?<![\w.+-])[A-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9](?:[A-Z0-9.-]*[A-Z0-9])?\.[A-Z]{2,63}\b",
     re.I,
@@ -53,7 +78,9 @@ LEARNING = re.compile(
 )
 NEGATION = re.compile(r"\b(?:no|not|without|lack(?:ing)?|never)\b", re.I)
 ACTION = re.compile(
-    r"\b(?:built|developed|implemented|deployed|designed|maintained|automated|analyzed|led|created|tested|used|optimized|managed|delivered)\b",
+    r"\b(?:built|developed|implemented|deployed|designed|maintained|automated|analyzed|"
+    r"led|created|tested|used|optimized|managed|delivered|processed|integrated|"
+    r"connected|performed|debugged)\b",
     re.I,
 )
 
@@ -105,12 +132,15 @@ def extract_skill(skill: str, lines: list[Evidence]) -> SkillEvidence:
             continue
         for match in pattern.finditer(line.text):
             # Bound negation to the same short clause, preventing unrelated skill leakage.
-            prefix = re.split(r"[;,.]|\bbut\b", line.text[: match.start()], flags=re.I)[-1][-65:]
+            context = re.split(r";|\.(?=\s|$)|\bbut\b", line.text[: match.start()], flags=re.I)[-1][
+                -400:
+            ]
+            prefix = context.rsplit(",", 1)[-1][-65:]
             if NEGATION.search(prefix):
                 status = "negated"
             elif LEARNING.search(prefix):
                 status = "learning"
-            elif line.section in {"experience", "projects"} and ACTION.search(prefix):
+            elif line.section in {"experience", "projects"} and ACTION.search(context):
                 status = "evidenced"
             else:
                 status = "mentioned"
@@ -165,6 +195,11 @@ def parse_resume(
     text = validate_text(unicodedata.normalize("NFKC", text))
     lines = annotated_lines(text)
     warnings: list[str] = []
+    if "\ufffd" in text:
+        warnings.append(
+            "Some PDF characters could not be decoded. Verify names and date separators "
+            "against the original document."
+        )
     emails = list(dict.fromkeys(EMAIL.findall(text)))
     name = extract_name(lines)
     if not name:
@@ -188,9 +223,14 @@ def parse_resume(
     for item in lines:
         if item.section != "experience":
             continue
-        for match in RANGE.finditer(item.text):
-            start, start_precision = parse_date(match["start"], as_of=as_of, end=False)
-            end, end_precision = parse_date(match["end"], as_of=as_of, end=True)
+        tokens = [(match["start"], match["end"]) for match in RANGE.finditer(item.text)]
+        tokens.extend(
+            (f"{match['start']} {match['year']}", f"{match['end']} {match['year']}")
+            for match in SHARED_YEAR_RANGE.finditer(item.text)
+        )
+        for start_token, end_token in tokens:
+            start, start_precision = parse_date(start_token, as_of=as_of, end=False)
+            end, end_precision = parse_date(end_token, as_of=as_of, end=True)
             cutoff = as_of.replace(day=1)
             if start >= end or start >= cutoff:
                 warnings.append(

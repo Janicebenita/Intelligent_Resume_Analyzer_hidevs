@@ -226,7 +226,9 @@
               </td>
               <td>
                 <span class="pill status-{{ row.status }}">{{ row.status|replace('_',' ') }}</span
-                >{% for e in row.evidence %}<span class="evidence"
+                >{% if row.matched_alternative %}<span class="evidence"
+                  >Best supported alternative: {{ row.matched_alternative }}</span
+                >{% endif %}{% for e in row.evidence %}<span class="evidence"
                   >L{{ e.line }} · {{ e.section }} — {{ e.text }}</span
                 >{% endfor %}
               </td>
