@@ -44,6 +44,7 @@ The [public YouTube walkthrough](https://youtu.be/zbdmmfNSYxw) on Janice Benita'
 
 | Capability | Implementation |
 |---|---|
+| 📥 Import a job description | Upload PDF/DOCX/TXT or paste English JD text; review draft title, known skills, OR groups, required/preferred labels and explicit experience targets with source lines before applying |
 | 📄 Extract resume information | PDF text, DOCX paragraphs/tables/headers, UTF-8/UTF-16 TXT; names, email, skills and employment |
 | 🔗 Inspect the evidence | 1-based line references, section context, evidence strength, source hash and analysis date |
 | ⚖️ Configure the rubric | Required/preferred skills, OR alternatives scored once, alias-aware duplicate checks, per-skill weights, experience target and budget |
@@ -104,6 +105,14 @@ Use `OR` between alternative skills. A group earns points once using its stronge
 
 The importance label flags gaps; the numeric weight controls points. A role without a minimum experience target automatically allocates all points to skills.
 
+#### 📥 Start from a JD document
+
+Open **Upload or paste a job description**, choose a text-based PDF, DOCX or TXT (up to 2 MiB), and select **Extract JD fields**. Review the draft and expand its source evidence. **Apply draft to role** fills the editable rubric; it does not analyze or select a candidate. Then upload/paste the resume and run analysis.
+
+Try the fictional [campus JD](docs/examples/synthetic-campus-job.txt) and [campus resume](docs/examples/synthetic-campus-resume.txt). Language alternatives such as Java/Python are credited as one group. Internship duration is not substituted for required prior work experience. Default weights are 1; a positive explicit experience target receives a default 20-point budget. Review both settings before use.
+
+JD extraction uses a curated skill vocabulary and English heuristics. Unknown technologies, unusual wording, ambiguous alternatives and conflicting experience targets need manual correction. Missing experience defaults to zero with a warning. Academic eligibility, compensation, availability and location are not automatically scored. JD source lines are shown during drafting; exported reports retain the applied rubric, not the original JD file.
+
 ### 💻 Offline CLI and real JSON file operations
 
 ```bash
@@ -158,6 +167,7 @@ flowchart LR
 |---|---|
 | `app/documents.py` | Format signatures, size/page/expansion limits, text extraction |
 | `app/parser.py`, `app/skills.py` | Names, email, aliases, clause evidence, dates and interval union |
+| `app/job_parser.py` | Reviewable JD drafts, explicit experience targets, skill alternatives and source evidence |
 | `app/models.py` | Pydantic contracts, schema version, invariants and input validation |
 | `app/matching.py` | Pure explainable rubric and follow-up recommendations |
 | `app/storage.py` | JSON interchange, consistency checks and atomic local persistence |

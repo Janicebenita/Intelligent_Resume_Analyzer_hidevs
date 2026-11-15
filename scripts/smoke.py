@@ -32,7 +32,29 @@ def main():
         "application/json",
     )
     assert b"<!doctype html>" in exported and b"Kubernetes" in exported
-    print("PASS: Python health, analysis, score arithmetic, date union and report export")
+    draft = json.loads(
+        read(
+            "/api/job/extract",
+            urllib.parse.urlencode(
+                {
+                    "text": "Job title: Software Engineering Trainee\n"
+                    "Experience: Freshers\nRequired skills: Java or Python"
+                }
+            ).encode(),
+        )
+    )["draft"]
+    job = {key: value for key, value in draft.items() if key not in {"fields", "warnings"}}
+    matched = json.loads(
+        read(
+            "/api/analyze",
+            urllib.parse.urlencode(
+                {"job_json": json.dumps(job), "as_of": demo["as_of"], "text": demo["text"]}
+            ).encode(),
+        )
+    )["report"]
+    assert matched["match_score"] == 100
+    assert matched["rows"][0]["matched_alternative"] == "Python"
+    print("PASS: Python health, analysis, date union, export and JD draft-to-match flow")
 
 
 if __name__ == "__main__":

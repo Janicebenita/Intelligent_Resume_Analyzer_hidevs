@@ -15,6 +15,7 @@ from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoin
 from app.demo import DEMO_RESUME, demo_job
 from app.documents import MAX_BYTES, extract_document
 from app.errors import AnalysisError
+from app.job_parser import extract_job
 from app.models import Job, Model
 from app.reports import ENV, csv_report, render_report
 from app.service import analyze
@@ -159,6 +160,20 @@ def create_app() -> FastAPI:
             source_type = "text"
         result = analyze(text, job, as_of, source_type)
         return {"report": result.model_dump(mode="json"), "html": render_report(result)}
+
+    @application.post("/api/job/extract")
+    async def extract_job_route(
+        text: Annotated[str, Form(max_length=100_000)] = "",
+        file: Annotated[UploadFile | None, File()] = None,
+    ) -> dict[str, object]:
+        if file is not None and file.filename:
+            if text.strip():
+                raise AnalysisError("ambiguous_input", "Provide a JD file or pasted JD, not both.")
+            content = await file.read(MAX_BYTES + 1)
+            await file.close()
+            text, _ = extract_document(file.filename, content)
+        draft = extract_job(text)
+        return {"draft": draft.model_dump(mode="json")}
 
     class ExportRequest(Model):
         report_json: str

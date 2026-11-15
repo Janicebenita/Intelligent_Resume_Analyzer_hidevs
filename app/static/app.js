@@ -1,7 +1,7 @@
 /* UI coordinates inputs and safe rendering; the Python engine owns every score. */
 "use strict";
 const byId = (id) => document.getElementById(id);
-const state = { report: null, busy: false };
+const state = { report: null, busy: false, draft: null };
 const controls = ["analyze-button", "load-demo", "import-file"];
 
 function clearResult() {
@@ -29,7 +29,78 @@ function setBusy(busy, message = "") {
   byId("status").textContent = message;
   byId("error").hidden = true;
   byId("analysis-form").setAttribute("aria-busy", String(busy));
+  byId("apply-jd").disabled = busy || !state.draft;
 }
+
+function clearDraft() {
+  state.draft = null;
+  byId("jd-draft").hidden = true;
+  byId("apply-jd").disabled = true;
+}
+
+byId("jd-file").addEventListener("change", () => {
+  clearDraft();
+  const file = byId("jd-file").files[0];
+  byId("jd-file-name").textContent = file ? file.name : "No JD selected";
+  if (file) byId("jd-text").value = "";
+});
+byId("jd-text").addEventListener("input", clearDraft);
+
+function requirementLines(requirements) {
+  return requirements.map((r) => `${r.skill} | ${r.importance} | ${r.weight}`).join("\n");
+}
+
+function safeList(id, lines) {
+  const list = byId(id);
+  list.replaceChildren();
+  lines.forEach((line) => {
+    const item = document.createElement("li");
+    item.textContent = line;
+    list.appendChild(item);
+  });
+}
+
+byId("extract-jd").addEventListener("click", async () => {
+  if (state.busy) return;
+  clearDraft();
+  setBusy(true, "Extracting a JD draft for your review…");
+  try {
+    const file = byId("jd-file").files[0];
+    if (file && file.size > 2 * 1024 * 1024) throw new Error("Maximum JD file size is 2 MiB.");
+    const data = new FormData();
+    data.set("text", byId("jd-text").value);
+    if (file) data.set("file", file);
+    const { draft } = await (
+      await request("/api/job/extract", { method: "POST", body: data })
+    ).json();
+    state.draft = draft;
+    byId("jd-draft-summary").textContent =
+      `${draft.title} · Minimum years: ${draft.minimum_years} · Experience points: ${draft.experience_weight}`;
+    byId("jd-draft-skills").textContent =
+      requirementLines(draft.requirements) || "Add requirements manually after applying.";
+    safeList("jd-warnings", draft.warnings);
+    safeList(
+      "jd-evidence",
+      draft.fields.map((f) => `${f.field}: ${f.value} — L${f.evidence.line}: ${f.evidence.text}`),
+    );
+    byId("jd-draft").hidden = false;
+    setBusy(false, "JD draft ready. Review the fields and source evidence before applying.");
+  } catch (error) {
+    setBusy(false);
+    showError(error);
+  }
+});
+
+byId("apply-jd").addEventListener("click", () => {
+  if (state.busy || !state.draft) return;
+  const draft = state.draft;
+  byId("job-title").value = draft.title;
+  byId("requirements").value = requirementLines(draft.requirements);
+  byId("minimum-years").value = draft.minimum_years;
+  byId("experience-weight").value = draft.experience_weight;
+  clearResult();
+  byId("status").textContent = "JD draft applied. Review/edit the role, then analyze the resume.";
+});
 
 async function request(url, options = {}) {
   let response;
@@ -62,6 +133,7 @@ function renderResult(result) {
 
 byId("load-demo").addEventListener("click", async () => {
   if (state.busy) return;
+  clearDraft();
   clearResult();
   setBusy(true, "Loading the authored synthetic example…");
   try {

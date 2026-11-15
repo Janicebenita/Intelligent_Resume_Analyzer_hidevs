@@ -1,0 +1,10 @@
+Job title: Software Engineering Trainee
+Experience: Final-Year Students
+Internship duration: 6 months to 1 year
+KEY SKILLS REQUIRED
+DSA and OOP fundamentals
+At least one programming language such as Java, Python, C++ or JavaScript
+SQL/NoSQL databases
+REST APIs, HTML, CSS and Git
+PREFERRED SKILLS
+Docker

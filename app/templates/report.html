@@ -281,9 +281,10 @@
         </p>
         {% endfor %}
         <p>
-          Experience points = {{ report.job.experience_weight }} × min(1, months ÷ {{
-          report.job.minimum_years }} ÷ 12). The experience budget is zero when no minimum is
-          configured.
+          {% if report.job.minimum_years > 0 %} Experience points = {{ report.job.experience_weight
+          }} × min(1, months ÷ {{ report.job.minimum_years }} ÷ 12). {% else %} No experience
+          minimum is configured, so the experience budget is zero. Dated employment remains visible
+          for review; all available points are allocated to skills. {% endif %}
         </p>
       </details>
       <details {% if standalone %}open{% endif %}>

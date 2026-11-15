@@ -33,6 +33,71 @@ function setup(fetch) {
   return dom;
 }
 
+const jdDraft = {
+  title: "Software Engineering Trainee",
+  requirements: [{ skill: "Java OR Python", alternatives: ["Java", "Python"], importance: "required", weight: 1 }],
+  minimum_years: 0, experience_weight: 0,
+  warnings: ["Review this draft."],
+  fields: [{ field: "Job title", value: "Software Engineering Trainee", evidence: { line: 1, text: "Role: Software Engineering Trainee" } }],
+};
+
+test("JD extraction previews source evidence and only applies after a review action", async () => {
+  let calls = 0;
+  const dom = setup(async (url, options) => {
+    calls++;
+    assert.equal(url, "/api/job/extract");
+    assert.equal(options.body.get("text"), "Role: Software Engineering Trainee");
+    return { ok: true, json: async () => ({ draft: jdDraft }) };
+  });
+  const doc = dom.window.document;
+  doc.getElementById("job-title").value = "Original role";
+  doc.getElementById("jd-text").value = "Role: Software Engineering Trainee";
+  doc.getElementById("extract-jd").click();
+  assert.equal(doc.getElementById("resume-file").disabled, true);
+  await settle();
+  assert.equal(doc.getElementById("job-title").value, "Original role");
+  assert.equal(doc.getElementById("jd-draft").hidden, false);
+  assert.match(doc.getElementById("jd-evidence").textContent, /L1: Role:/);
+  doc.getElementById("apply-jd").click();
+  assert.equal(doc.getElementById("job-title").value, jdDraft.title);
+  assert.equal(doc.getElementById("requirements").value, "Java OR Python | required | 1");
+  assert.equal(doc.getElementById("minimum-years").value, "0");
+  assert.equal(doc.getElementById("report-output").hidden, true);
+  assert.equal(calls, 1);
+  doc.getElementById("jd-text").dispatchEvent(new dom.window.Event("input", { bubbles: true }));
+  assert.equal(doc.getElementById("apply-jd").disabled, true);
+  assert.equal(doc.getElementById("jd-draft").hidden, true);
+  dom.window.close();
+});
+
+test("JD preview treats source and warning markup as text", async () => {
+  const draft = { ...jdDraft, title: "<img src=x onerror=alert(1)>", requirements: [], warnings: ["<script>bad()</script>"], fields: [] };
+  const dom = setup(async () => ({ ok: true, json: async () => ({ draft }) }));
+  const doc = dom.window.document;
+  doc.getElementById("extract-jd").click();
+  await settle();
+  assert.match(doc.getElementById("jd-draft-summary").textContent, /<img/);
+  assert.equal(doc.getElementById("jd-draft").querySelector("img"), null);
+  assert.match(doc.getElementById("jd-draft-skills").textContent, /manually/);
+  dom.window.close();
+});
+
+test("JD extraction failure restores controls and permits retry", async () => {
+  let calls = 0;
+  const dom = setup(async () => {
+    calls++;
+    return calls === 1 ? { ok: false, status: 400, json: async () => ({ error: { message: "No usable text." } }) } : { ok: true, json: async () => ({ draft: jdDraft }) };
+  });
+  const doc = dom.window.document;
+  doc.getElementById("extract-jd").click(); await settle();
+  assert.equal(doc.getElementById("error").textContent, "No usable text.");
+  assert.equal(doc.getElementById("extract-jd").disabled, false);
+  doc.getElementById("extract-jd").click(); await settle();
+  assert.equal(doc.getElementById("error").hidden, true);
+  assert.equal(doc.getElementById("apply-jd").disabled, false);
+  dom.window.close();
+});
+
 test("OR syntax reaches Python as one alternative group", async () => {
   const dom = setup(async (url, options) => {
     const job = JSON.parse(options.body.get("job_json"));

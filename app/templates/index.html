@@ -75,6 +75,47 @@
                 <p>Choose the requirements before reviewing the resume.</p>
               </div>
             </div>
+            <details class="jd-import">
+              <summary>↥ Upload or paste a job description</summary>
+              <p class="field-help">
+                Extract a draft, review its source evidence, then apply it to the role below. PDF,
+                DOCX or TXT · up to 2 MiB. English text only; scanned PDFs need external OCR.
+              </p>
+              <label for="jd-file" class="file-label"
+                >↑ Choose JD document<input
+                  id="jd-file"
+                  type="file"
+                  accept=".pdf,.docx,.txt"
+                /><span id="jd-file-name">No JD selected</span></label
+              >
+              <label for="jd-text">Or paste JD text</label
+              ><textarea
+                id="jd-text"
+                rows="5"
+                maxlength="100000"
+                placeholder="Job title: Software Engineering Trainee&#10;Required skills: Java or Python, SQL, Git&#10;Experience: Freshers"
+              ></textarea>
+              <button type="button" class="button secondary" id="extract-jd">
+                Extract JD fields
+              </button>
+              <section id="jd-draft" class="jd-draft" hidden>
+                <h4>Review extracted JD</h4>
+                <p id="jd-draft-summary"></p>
+                <pre id="jd-draft-skills"></pre>
+                <ul id="jd-warnings"></ul>
+                <details>
+                  <summary>View JD source evidence</summary>
+                  <ul id="jd-evidence"></ul>
+                </details>
+                <button type="button" class="button secondary" id="apply-jd" disabled>
+                  Apply draft to role
+                </button>
+                <p class="field-help">
+                  Applying replaces role fields. Adjust weights and omissions before analyzing.
+                  Source evidence is shown here; exported reports retain the applied rubric.
+                </p>
+              </section>
+            </details>
             <label for="job-title">Job title</label
             ><input
               id="job-title"
@@ -105,7 +146,7 @@
                   type="number"
                   min="0"
                   max="50"
-                  step="0.5"
+                  step="any"
                   value="3"
                   required
                 />

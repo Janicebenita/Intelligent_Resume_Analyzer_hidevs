@@ -923,3 +923,32 @@ footer p {
     gap: 7px;
   }
 }
+/* Optional JD extraction stays separate from the editable scoring rubric. */
+.jd-import {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid #d7e5df;
+  border-radius: 12px;
+  background: #f5faf7;
+}
+.jd-import > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #08685e;
+}
+.jd-draft {
+  margin-top: 18px;
+  font-size: 13px;
+}
+.jd-draft pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+  padding: 12px;
+  background: #e7f1ec;
+  border-radius: 8px;
+}
+.jd-draft ul {
+  padding-left: 20px;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,14 @@
+Casey Blake
+casey.blake@example.com
+TECHNICAL SKILLS
+OOP, DSA Fundamentals, Git
+TECHNICAL INTERNSHIP EXPERIENCE
+Developer Intern | Example Labs | May-Jul 2025
+Processed records using Python and SQL.
+Web Intern | Sample Studio | Jul-Aug 2024
+Developed interfaces using HTML, CSS and JavaScript.
+PROJECTS
+Built REST APIs using Python and FastAPI.
+Currently learning Docker.
+EDUCATION
+BTech Information Technology | Example University | 2023-2027

@@ -38,3 +38,7 @@ README artwork introduced a line-length violation during a spacing adjustment. I
 ## Current local update, 2026-11-15
 
 Algorithm rolelens-1.1 adds OR groups credited once, selected-alternative evidence, DSA/OOP aliases, controlled internship/project headings and shared-year month ranges. The local suite passes 124 Python tests at 98.12% line/branch coverage and seven DOM tests. The 12-case authored evaluation still passes. Local browser verification covers PDF upload, OR scoring, required-gap follow-ups, five fictional internship months, JSON/CSV/HTML export, JSON reopen and invalid-file recovery. A refreshed narrated demo and production verification are in progress. No real resume data is included in these examples.
+
+## JD import update, 2026-11-15
+
+The optional JD upload/paste flow now drafts title, known skills, required/preferred labels, OR groups and explicit experience targets. Source lines and review warnings appear before the recruiter applies fields to the editable rubric. No candidate analysis runs during drafting. PDF/DOCX/TXT boundaries and malformed/ambiguous input are tested. The local complete suite passes 152 Python tests at 98.27% combined line/branch coverage and ten DOM tests; strict lint/types/formatting and the 12-case parser corpus pass. The browser verified upload → extract → source review → apply → fictional resume analysis (78.33 with the authored default rubric). Refreshed video/public release verification is pending. Original JD documents are not retained in exported analysis reports.
