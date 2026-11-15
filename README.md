@@ -4,11 +4,13 @@
 
 ### Evidence before decisions.
 
-**Intelligent Resume Analyzer · Python + Regular Expressions**
+## Intelligent Resume Analyzer
+
+**Python + Regular Expressions**
 
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Python_backend-009688?logo=fastapi&logoColor=white)](app/main.py)
-[![Quality](https://github.com/Janicebenita/intelligent_resume_analyzer_hidevs/actions/workflows/quality.yml/badge.svg)](https://github.com/Janicebenita/intelligent_resume_analyzer_hidevs/actions/workflows/quality.yml)
+[![Quality](https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions/workflows/quality.yml/badge.svg)](https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions/workflows/quality.yml)
 [![License](https://img.shields.io/badge/License-MIT-86b76d)](LICENSE)
 
 **📄 Parse → 🧩 Match → 🔍 Inspect → 📦 Export**
