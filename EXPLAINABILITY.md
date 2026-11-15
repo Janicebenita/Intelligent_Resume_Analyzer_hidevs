@@ -1,60 +1,44 @@
-# RoleLens Explainability
+content = """# EXPLAINABILITY.md
 
-## Decision
+## 1. System Overview
 
-RoleLens calculates a resume-to-role alignment score
-between 0 and 100 using a deterministic weighted scoring
-algorithm. The score combines skill evidence and employment
-duration according to the recruiter-defined job rubric.
+RoleLens is a deterministic, evidence-based resume analysis application built with Python and FastAPI. It extracts candidate information from uploaded resumes, evaluates detected skills against a recruiter-defined job rubric, calculates employment duration, and generates traceable analysis reports.
 
-Skills receive different evidence factors: 1.00 for
-demonstrated evidence, 0.60 for mentions, 0.25 for learning
-references, and 0.00 for missing or negated evidence.
+The application does not depend on an external large language model, generative AI API, or vector database to make its matching decisions. Its analysis is based on document extraction, regular-expression parsing, evidence classification, validated data models, and deterministic weighted calculations.
 
-The application also checks required skill gaps and
-generates follow-up recommendations. Its thresholds and
-weights are explicit design choices rather than empirically
-calibrated hiring predictions.
+## 2. Decision
 
-## Inputs
+RoleLens calculates a candidate-to-job match score using two components: skill evidence and employment experience. The skill component uses recruiter-configured required and preferred skills, skill aliases, individual weights, and evidence factors.
 
-RoleLens accepts PDF, DOCX, and TXT resume documents.
-It extracts names, email addresses, skills, employment
-history, and relevant text evidence using Python,
-regular expressions, and document extraction libraries.
+For each skill, the implementation classifies available resume evidence into one of four categories:
 
-The recruiter supplies a job rubric containing required
-and preferred skills, aliases, skill weights, experience
-targets, and budget allocation. Employment dates are
-normalized into month intervals, with overlapping periods
-merged to prevent double-counting.
+- **Evidenced (1.00):** The skill appears after a recognized action verb in an Experience or Projects clause.
+- **Mentioned (0.60):** The skill is present in the resume but without qualifying action evidence.
+- **Learning (0.25):** The skill appears alongside a learning or familiarity indicator.
+- **Negated or Not Found (0.00):** The resume explicitly negates the skill or contains no matching evidence.
 
-The application produces versioned JSON reports, HTML
-reports, and CSV exports. Imported JSON reports undergo
-schema and score-consistency validation.
+The skill score is calculated using the configured experience budget and skill weights:
 
-## Limitations
+`Skill points = (100 - E) × (skill weight / total skill weights) × evidence factor`
 
-RoleLens uses rule-based extraction rather than an external
-large language model. Unusual names, complex document
-layouts, mixed-language resumes, and unconventional date
-formats may cause extraction errors.
+Here, `E` represents the experience budget, configured between 0 and 50.
 
-Scanned PDFs require external OCR because this release
-does not include an OCR engine. Recognized resume claims
-are not independently verified, and keyword matches do
-not prove actual skill proficiency.
+Experience points are calculated using unique employment months and the target experience specified in the job rubric:
 
-The scoring algorithm measures alignment with the
-configured rubric, not job-success probability or
-candidate ability. Its thresholds and evidence factors
-have not been empirically calibrated.
+`Experience points = E × min(1, unique employment months / (12 × target years))`
 
-JSON validation does not authenticate the report author
-or prove that the original resume is genuine. The public
-hosted demonstration is intended for synthetic data,
-not real candidate information.
+The final match score is the sum of skill points and experience points, rounded to two decimal places and capped at 100.
 
-RoleLens must remain a human-supervised decision-support
-tool. It must not autonomously reject candidates or make
-high-stakes hiring decisions.
+The matching implementation also generates follow-up recommendations. If a required skill is missing, negated, or only classified as learning, the recommendation is adjusted to request clarification about the skill gap rather than relying solely on the numerical score.
+
+The score thresholds of 80 and 55, along with the evidence factors, are explicit design choices. They are not empirically calibrated hiring thresholds, and the score is not a probability of job success.
+
+## 3. Inputs
+
+The analysis begins with a resume supplied as a PDF, DOCX, TXT file, or supported text input. The document-processing component in `app/documents.py` checks format signatures and applies size, page, and document-expansion limits before extracting text.
+
+The parser and skill-processing components in `app/parser.py` and `app/skills.py` identify candidate information, email addresses, skill mentions, aliases, employment clauses, and date evidence. The implementation retains source evidence with line references, section context, evidence strength, source hash, and analysis date so that reviewers can trace how findings were produced.
+
+The matching process also receives a validated job rubric. This rubric contains required and preferred skills, skill aliases, skill weights, target experience, and an experience budget. The Pydantic models in `app/models.py` define the input contracts, validate data, and enforce model invariants.
+
+Employment calculations use dated employment evidence rather than accepting a candidate's self-reported total experience as
