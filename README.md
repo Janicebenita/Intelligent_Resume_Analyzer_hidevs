@@ -221,6 +221,8 @@ GitHub is connected to the Vercel Hobby project. A push-triggered production dep
 
 ### 🎯 HiDevs criterion mapping
 
+**Submitted for evaluation on 2026-11-15.** [View the submission receipt](docs/submission-receipt.json). Evaluation is pending; no official project score is claimed.
+
 | Criterion | Reviewable evidence |
 |---|---|
 | Code quality | Modular typed Python; strict mypy; Ruff; locked dependencies; CI |
