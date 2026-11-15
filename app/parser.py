@@ -40,7 +40,8 @@ DATE_TOKEN = (
     rf"(?:{MONTH_TOKEN}\s+|(?:0?[1-9]|1[0-2])[/.-])?(?:19|20)\d{{2}})"
 )
 RANGE = re.compile(
-    rf"(?P<start>{DATE_TOKEN})\s*(?:-|–|—|\bto\b)\s*(?P<end>{DATE_TOKEN}|present|current|now)\b",
+    rf"(?<![\w/.-])(?P<start>{DATE_TOKEN})\s*(?:-|–|—|\bto\b)\s*"
+    rf"(?P<end>{DATE_TOKEN}|present|current|now)\b(?![\w/]|-\d)",
     re.I,
 )
 EMAIL = re.compile(

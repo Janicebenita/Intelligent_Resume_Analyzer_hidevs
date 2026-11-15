@@ -75,14 +75,14 @@ def extract_document(filename: str, content: bytes) -> tuple[str, str]:
                     raise AnalysisError("invalid_docx", "The file is not a Word DOCX document.")
             document = Document(io.BytesIO(content))
             # Document.iter_inner_content preserves table/paragraph ordering.
-            chunks = []
+            chunks = [
+                p.text for section in document.sections for p in section.header.paragraphs if p.text
+            ]
             for block in document.iter_inner_content():
                 if hasattr(block, "rows"):
                     chunks.extend(" | ".join(cell.text for cell in row.cells) for row in block.rows)
                 else:
                     chunks.append(block.text)
-            for section in document.sections:
-                chunks.extend(p.text for p in section.header.paragraphs if p.text)
             text = "\n".join(chunks)
         except (zipfile.BadZipFile, KeyError, ValueError, OSError, XMLSyntaxError) as error:
             raise AnalysisError(

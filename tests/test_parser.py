@@ -72,6 +72,8 @@ def test_aliases_and_substring_collisions(target, text, found):
         (["Jan 2027 - Present"], 0),
         (["Jan 2024 - Dec 2027"], 12),
         (["2021-01 - 2022-06"], 18),
+        (["13/2020 - 01/2021"], 0),
+        (["01/2020 - 14/2021"], 0),
     ],
 )
 def test_employment_union_and_clock(ranges, months):

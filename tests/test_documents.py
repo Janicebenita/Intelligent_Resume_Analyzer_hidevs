@@ -2,6 +2,7 @@
 
 import io
 import zipfile
+from datetime import date
 
 import pytest
 from docx import Document
@@ -11,6 +12,7 @@ from reportlab.pdfgen.canvas import Canvas
 from app.demo import DEMO_RESUME
 from app.documents import MAX_BYTES, extract_document, validate_text
 from app.errors import AnalysisError
+from app.parser import parse_resume
 
 
 def pdf_bytes(text=DEMO_RESUME):
@@ -49,6 +51,24 @@ def test_real_pdf_and_docx_tables():
     assert "alex.morgan@example.com" in text and kind == "pdf"
     text, kind = extract_document("resume.docx", docx_bytes())
     assert "Python | Docker" in text and kind == "docx"
+
+
+def test_docx_contact_in_header_stays_before_body():
+    document = Document()
+    header = document.sections[0].header
+    header.paragraphs[0].text = "Dana Lane"
+    header.add_paragraph("dana@example.com")
+    document.add_paragraph("SUMMARY")
+    for _ in range(12):
+        document.add_paragraph("Experienced software engineer building services.")
+    document.add_paragraph("SKILLS")
+    document.add_paragraph("Python")
+    stream = io.BytesIO()
+    document.save(stream)
+    text, kind = extract_document("header.docx", stream.getvalue())
+    parsed = parse_resume(text, [], date(2025, 1, 1), kind)
+    assert parsed.name == "Dana Lane"
+    assert parsed.email == "dana@example.com"
 
 
 @pytest.mark.parametrize(
