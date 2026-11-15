@@ -1,6 +1,6 @@
 # Demo plan — under three minutes
 
-Status: script prepared; no video has been uploaded or submitted.
+Status: 2:35 narrated screenshot walkthrough published Unlisted at https://youtu.be/zbdmmfNSYxw. YouTube HD processing is complete. This is not continuous screen recording. No HiDevs submission has been made.
 
 Use synthetic example data only. Show the actual public deployment and its behavior, then the actual CI result. Do not describe coverage as accuracy or imply that the match score is a HiDevs project score.
 

@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest==9.2.0", "pytest-cov==7.1.0", "httpx2==2.16.0", "ruff==0.17.5", "mypy==2.4.1", "reportlab==5.1.0", "lxml-stubs==0.5.1"]
+dev = ["pytest==9.2.0", "pytest-cov==7.1.0", "httpx2==2.16.0", "ruff==0.17.5", "mypy==2.4.1", "reportlab==5.1.0", "lxml-stubs==0.5.1", "pillow==13.0.0"]
 
 [tool.vercel]
 entrypoint = "app.main:app"

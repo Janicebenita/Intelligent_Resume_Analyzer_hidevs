@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/assets/rolelens-hero.png" alt="RoleLens — Intelligent Resume Analyzer. Evidence before decisions." width="100%" />
+
 # 🔎 RoleLens
 
 ### Evidence before decisions.
@@ -12,14 +14,15 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-Python_backend-009688?logo=fastapi&logoColor=white)](app/main.py)
 [![Quality](https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions/workflows/quality.yml/badge.svg)](https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions/workflows/quality.yml)
 [![License](https://img.shields.io/badge/License-MIT-86b76d)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-Verified_container-2496ED?logo=docker&logoColor=white)](Dockerfile)
+[![JSON](https://img.shields.io/badge/JSON-Portable_reports-F4B942?logo=json&logoColor=white)](app/storage.py)
+[![Ruff](https://img.shields.io/badge/Ruff-Strict_linting-D7A7FF?logo=ruff&logoColor=29233D)](pyproject.toml)
 
 **📄 Parse → 🧩 Match → 🔍 Inspect → 📦 Export**
 
-[🚀 Open the live Python app](https://rolelens-resume-mu.vercel.app) · [🧪 Inspect the CI results](https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions)
+[🚀 Open the live Python app](https://rolelens-resume-mu.vercel.app) · [🎬 Watch the 2:35 demo](https://youtu.be/zbdmmfNSYxw) · [🧪 Inspect the CI results](https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions)
 
 </div>
-
-![RoleLens live workspace](docs/screenshots/workspace.jpg)
 
 RoleLens turns a resume and a recruiter-defined job rubric into a transparent 0–100 alignment report. Every skill point links to source text. Dated employment is calculated without double-counting concurrent roles. Missing evidence and extraction uncertainties are visible alongside practical follow-up questions.
 
@@ -27,7 +30,17 @@ RoleLens turns a resume and a recruiter-defined job rubric into a transparent 0�
 
 > 🛡️ **Recruiter decision support, not autonomous hiring.** Resume claims are unverified. Scores measure the configured rubric, not ability or job-success probability. Use synthetic resumes on the public demo; process real candidate data with the offline CLI in an appropriately secured environment.
 
+### 🌈 From resume to recruiter review
+
+![Animated ten-stage RoleLens journey from defining a role through document validation, extraction, evidence parsing, date merging, weighted matching, gap handling and reports to human review](docs/assets/rolelens-journey.gif)
+
+*Animated pipeline illustration of implemented stages. [Open the full-resolution static diagram](docs/assets/journey-poster.png). The banner is conceptual artwork; the product screenshots below show the actual application.*
+
+The [Unlisted YouTube walkthrough](https://youtu.be/zbdmmfNSYxw) uses actual browser screenshots, synthetic candidate data and a Windows synthetic voice. It is not continuous screen recording. [Read the transcript](docs/DEMO_TRANSCRIPT.md).
+
 ### ✨ What you can do
+
+![RoleLens capability cards: parse with context, explain every point, audit the details and keep portable evidence](docs/assets/feature-cards.png)
 
 | Capability | Implementation |
 |---|---|
@@ -43,6 +56,27 @@ RoleLens turns a resume and a recruiter-defined job rubric into a transparent 0�
 ![A traceable sample analysis](docs/screenshots/analysis.jpg)
 
 *The sample's 95/100 is a resume-to-role rubric score, not a project evaluation score. All displayed candidate information is synthetic.*
+
+<details>
+<summary>🖼️ Explore more actual product views</summary>
+
+#### 🧭 The recruiter workspace
+
+![Actual live RoleLens workspace](docs/screenshots/workspace.jpg)
+
+#### 🗓️ Employment and contact extraction audit
+
+![Actual employment audit with source dates and extracted synthetic contact details](docs/screenshots/experience-audit.jpg)
+
+#### 🧾 Printable evidence report
+
+![Actual standalone printable report](docs/screenshots/print-report.jpg)
+
+#### 📱 Resume analysis on mobile
+
+<img src="docs/screenshots/mobile-analysis.jpg" alt="Actual responsive resume analysis at a mobile breakpoint" width="45%" />
+
+</details>
 
 ### 🚀 Run locally
 
@@ -160,6 +194,8 @@ python scripts/smoke.py --url http://127.0.0.1:7860
 ```
 
 The GitHub workflow runs lint/types/tests/evaluation/UI checks, then builds the non-root container and exercises its HTTP flow. **Deployment wiring and live verification status are recorded in [release readiness](docs/RELEASE_READINESS.md); workflow configuration alone is not evidence of a successful deployment.** No paid hosting upgrades or add-ons are part of this project.
+
+GitHub is connected to the Vercel Hobby project. A push-triggered production deployment was verified against commit `a0ef9fd`, followed by a passing public HTTP smoke test. GitHub quality checks and Vercel builds run independently; this project does not claim an enforced deployment gate on every future push.
 
 ### ⚠️ Boundaries and responsible use
 
