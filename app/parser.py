@@ -19,6 +19,7 @@ SECTIONS = {
         "employment history",
         "work history",
         "internships",
+        "internship",
         "internship experience",
         "technical internship experience",
         "relevant experience",
@@ -135,10 +136,23 @@ def extract_skill(skill: str, lines: list[Evidence]) -> SkillEvidence:
             context = re.split(r";|\.(?=\s|$)|\bbut\b", line.text[: match.start()], flags=re.I)[-1][
                 -400:
             ]
-            prefix = context.rsplit(",", 1)[-1][-65:]
-            if NEGATION.search(prefix):
+            # A shared marker applies to a comma-separated skill list. A later
+            # action/learning clause starts a new scope, e.g. "No Java, built Python".
+            actions = list(ACTION.finditer(context))
+            learning = list(LEARNING.finditer(context))
+            negatives = list(NEGATION.finditer(context))
+            action_at = actions[-1].start() if actions else -1
+            learning_at = learning[-1].start() if learning else -1
+            negative_at = negatives[-1].start() if negatives else -1
+            negated_learning = (
+                learning_at > action_at
+                and negative_at >= 0
+                and 0 < learning_at - negative_at < 20
+                and "," not in context[negative_at:learning_at]
+            )
+            if negative_at > max(action_at, learning_at) or negated_learning:
                 status = "negated"
-            elif LEARNING.search(prefix):
+            elif learning_at > action_at:
                 status = "learning"
             elif line.section in {"experience", "projects"} and ACTION.search(context):
                 status = "evidenced"

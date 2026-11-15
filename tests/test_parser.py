@@ -118,3 +118,38 @@ def test_negative_and_positive_separate_clauses():
     lookup = {s.skill: s.status for s in result.skills}
     assert lookup["Java"] == "negated"
     assert lookup["Python"] == "evidenced"
+
+
+@pytest.mark.parametrize(
+    "clause,expected",
+    [
+        ("Currently learning Python, Java and SQL.", ["learning"] * 3),
+        ("No experience with Python, Java or SQL.", ["negated"] * 3),
+        ("Built Python, Java and SQL services.", ["evidenced"] * 3),
+        ("Not learning Python, Java or SQL.", ["negated"] * 3),
+        ("No Java, learning Python and SQL.", ["learning", "negated", "learning"]),
+        (
+            "No Java experience, built Python and SQL services.",
+            ["evidenced", "negated", "evidenced"],
+        ),
+        (
+            "Built Java services, currently learning Python and SQL.",
+            ["learning", "evidenced", "learning"],
+        ),
+    ],
+)
+def test_shared_skill_list_markers_and_clause_resets(clause, expected):
+    resume = parse_resume(f"Casey Blake\ncasey@example.com\nPROJECTS\n{clause}", [], AS_OF)
+    lookup = {skill.skill: skill.status for skill in resume.skills}
+    assert [lookup[name] for name in ["Python", "Java", "SQL"]] == expected
+
+
+def test_singular_internship_heading_is_employment():
+    resume = parse_resume(
+        "Casey Blake\ncasey@example.com\nInternship\n"
+        "Example Labs | May-Jul 2024\nBuilt Python services.",
+        [],
+        AS_OF,
+    )
+    assert resume.experience_months == 3
+    assert next(s for s in resume.skills if s.skill == "Python").status == "evidenced"
