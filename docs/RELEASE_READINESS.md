@@ -1,44 +1,28 @@
 # Release readiness
 
-Status: **ready for user review; not submitted to HiDevs**.
+Status: **application verified and public walkthrough published; HiDevs not submitted**.
 
-The project must be complete and verified, then receive Janice's explicit approval before submission. A passing workflow alone does not authorize submission.
+Reviewed application source: `b55d39e013ea72f28670925627c5d10d1e73072b` (algorithm rolelens-1.1). Documentation-only commits may follow without changing the engine.
 
-| Gate | Current state |
+| Gate | Verified evidence |
 |---|---|
-| Required stack | Python + regular expressions implemented |
-| Python lint and strict type checking | Passed locally and in Linux CI |
-| Functional tests and coverage | 105 Python tests; 98.04% combined line/branch coverage; Linux CI passed |
-| Labeled parsing evaluation | 12 synthetic cases passed locally |
-| UI behavior and layout | Six DOM behavior tests passed; desktop/mobile live flows verified with no page overflow |
-| JSON save/reopen and reports | HTTP/CLI tests and actual live browser JSON download/reopen passed |
-| Linux container build and smoke | Passed in GitHub Actions run 43725343169 |
-| Public Python deployment | Live: https://rolelens-resume-mu.vercel.app; public HTTP smoke and browser PDF/DOCX analysis passed |
-| Automated deployment | Verified push-triggered production deployment for commit a0ef9fd; public smoke passed |
-| README and evidence | Developer details, hero, animated journey and colourful feature cards published; all images verified loading in GitHub; slow animation timing verified |
-| YouTube demo under three minutes | Published Public on Janice Benita's channel: https://youtu.be/zbdmmfNSYxw; 155.62 seconds (displayed 2:36); HD complete and copyright check clear |
-| HiDevs submission | Not authorized for this release; do not submit |
+| Required stack | Python + regular expressions; FastAPI backend on Vercel |
+| JD import | PDF/DOCX/TXT or pasted English text → reviewable draft → source evidence → explicit apply to editable rubric |
+| JD boundaries | Curated skills only; defaults and omissions disclosed; no autonomous eligibility checks; original JD file not retained in analysis exports |
+| Python checks | 152 tests, 98.27% combined line/branch coverage; strict mypy and Ruff passed |
+| UI checks | Ten DOM behavior tests; ESLint and formatting passed |
+| Labeled parsing evaluation | All 12 authored synthetic cases passed; not independent production validation |
+| Linux CI and container | [Run 43737141748](https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions/runs/43737141748): quality and container jobs succeeded |
+| Public deployment | [RoleLens](https://rolelens-resume-mu.vercel.app), production READY; deployment `dpl_5puafz8Vus1E43VnQLZmVtcRcoiq` at reviewed source |
+| Live flow | HTTP smoke includes JD extraction → OR matching; browser upload → review → apply → fictional resume result verified at 78.33 for the authored default rubric |
+| JSON and reports | Actual JSON/CSV/HTML downloads, validated JSON reopen, and offline atomic save/reopen verified |
+| New public video | [Updated walkthrough](https://youtu.be/Pqh0LnDSt_I), 3:37, 1920×1080 H.264/AAC, 48 kHz audio; HD complete; YouTube checks reported no issues |
+| Channel replacement | New video visible first on @JaniceBenita-d6x Videos tab; previous video zbdmmfNSYxw saved as Unlisted |
+| Submission video duration | The complete walkthrough exceeds the previously stated under-three-minute HiDevs limit. A shorter submission cut remains necessary if that limit still applies. Janice chose the full walkthrough for the public channel. |
+| HiDevs | No submission in this release. Separate approval after completeness review is required. |
 
-Hugging Face was checked while signed in as janicecodes: Docker and CPU Basic were disabled on the new-Space form. No paid plan was activated. The user approved Vercel Hobby as the alternative.
+The video uses actual verified browser screenshots and command outputs, fictional JD/candidate examples and Indian English male neural synthetic narration (en-IN-PrabhatNeural). It is not continuous screen recording and does not claim a human narrator. Detail-view pairs are labeled. Measured scene audio controls the timeline; each screen remains visible through its narration, with silent margins around transitions. Full decode completed without errors. Audio peak was -1.1 dBFS, without clipping. See the transcript and timeline for the exact narration and source screens.
 
-First verified workflow: https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions/runs/43722822948 at commit `3c42eb9`. Five DOM tests, strict Python typing, Ruff/ESLint/formatting and the actual Docker HTTP smoke test passed. New changes must pass again before a release is declared complete.
+The public demo is unauthenticated and intended for synthetic data. Real resume files and private analyses remain outside the tracked repository and deployment. JD drafts need recruiter review: unknown technologies and ambiguous wording can be missed, and defaults are not employer-approved priorities. No OCR, LLM, automated hire/reject, calibrated success prediction or durable shared cloud report library is claimed.
 
-Second verified workflow: https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions/runs/43723403219 at commit `42a82f8`, with current pinned actions and updated HTTP test dependency. No Python test warnings. This is the source of deployment `dpl_6V2LSAUoKmHaLEYnoai1LNKwCfFi`. The deployment was uploaded as reviewed source files because GitHub integration was unavailable; it is not an automatic Git deployment. Error/fatal runtime-log scan returned no entries during verification (2026-11-15).
-
-Current verified application source: `ae7e36082ad669123a6d950dc09a1d4a5d76f7ff`, CI https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions/runs/43725343169. Deployment `dpl_3eFKxNw4ytYVEDAApwfAXeLRiDLE` contains the same application source. Additional live checks verified DOCX contact headers, expanded audit details in exported HTML, PDF/DOCX processing, required-skill gap recommendations, JSON download/reopen, actionable short-input errors and the 390px responsive breakpoint. The printable report was visually inspected and corrected before release.
-
-Janice explicitly approved expanding the existing Vercel installation to this repository only. Its other three repository selections were retained. The existing Vercel project is now connected to GitHub; no duplicate project was created. CI checks and Vercel builds run independently; do not claim deployment waits for all GitHub checks unless a release gate is separately configured.
-
-The demo uses actual browser screenshots and an installed Windows synthetic voice, rather than continuous screen recording. It is 1920×1080 H.264/AAC and decodes without errors after audio timestamp normalization. The video and screenshots contain synthetic candidate information only. The description discloses the screenshot walkthrough and synthetic voice. Janice explicitly requested Public visibility; this was saved and verified by reloading Studio. The public channel's Videos tab showed 8 videos with RoleLens first, confirming channel visibility. HD processing is complete and no copyright issues were found.
-
-The actual Git-triggered deployment for documentation commit `a0ef9fdccfe6518d2c4bd0ac34395ebce1df6c9a` is `dpl_AwYGBTzY5ToxmmHgcEtJc7m9N2zL`, production READY. GitHub reported the Vercel check successful, and CI run 43725927174 passed. The public Python HTTP smoke test passed after this deployment.
-
-README artwork introduced a line-length violation during a spacing adjustment. It was corrected in commit `43f3838`, and the complete quality/container workflow passed in run 43728072902. The final pacing change holds every stage for 6,000 ms and transitions for 900 ms; the encoded GIF was inspected and verified to have ten reading holds and a 69,000 ms loop. Subsequent presentation-only pushes remain subject to the same CI checks.
-
-## Current local update, 2026-11-15
-
-Algorithm rolelens-1.1 adds OR groups credited once, selected-alternative evidence, DSA/OOP aliases, controlled internship/project headings and shared-year month ranges. The local suite passes 124 Python tests at 98.12% line/branch coverage and seven DOM tests. The 12-case authored evaluation still passes. Local browser verification covers PDF upload, OR scoring, required-gap follow-ups, five fictional internship months, JSON/CSV/HTML export, JSON reopen and invalid-file recovery. A refreshed narrated demo and production verification are in progress. No real resume data is included in these examples.
-
-## JD import update, 2026-11-15
-
-The optional JD upload/paste flow now drafts title, known skills, required/preferred labels, OR groups and explicit experience targets. Source lines and review warnings appear before the recruiter applies fields to the editable rubric. No candidate analysis runs during drafting. PDF/DOCX/TXT boundaries and malformed/ambiguous input are tested. The local complete suite passes 152 Python tests at 98.27% combined line/branch coverage and ten DOM tests; strict lint/types/formatting and the 12-case parser corpus pass. The browser verified upload → extract → source review → apply → fictional resume analysis (78.33 with the authored default rubric). Refreshed video/public release verification is pending. Original JD documents are not retained in exported analysis reports.
+Vercel Hobby is the approved hosting target; no paid upgrade or billable add-on was activated. The existing Git integration is restricted to the user-approved repository selection. Vercel builds and GitHub checks run independently; an enforced deployment gate is not claimed.

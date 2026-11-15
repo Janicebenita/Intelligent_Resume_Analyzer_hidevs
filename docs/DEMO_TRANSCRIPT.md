@@ -1,35 +1,64 @@
-# RoleLens demo transcript
+# RoleLens updated demo / JD + Resume workflow
 
-Narrated walkthrough using actual browser screenshots and synthetic candidate data. Windows synthetic voice. This is not continuous screen recording.
+Public video: https://youtu.be/Pqh0LnDSt_I
 
-## 01 / PURPOSE
+Duration: 3:37 (216.70 seconds). Reviewed application source: `b55d39e`.
 
-Meet RoleLens, an Intelligent Resume Analyzer built in Python and regular expressions. It turns a resume and a job rubric into evidence a recruiter can inspect. This walkthrough uses actual browser screenshots and synthetic candidate data. It does not make hiring decisions.
+Actual verified browser screenshots and command outputs; synthetic data. This is an edited screenshot walkthrough, not continuous screen recording. Detail-view pairs are labeled.
+Indian English male neural synthetic narration: `en-IN-PrabhatNeural`, rate -10%, pitch -2 Hz. No human narrator is claimed. Every scene includes a 450 ms audio lead and approximately 950 ms reading hold after narration; transitions occur within these silent margins. Captions and chapter boundaries follow the measured audio timeline. No background music is used.
 
-## 02 / PERSONALIZATION
+## 01 / Evidence before decisions
 
-Start with job relevant skills, mark them required or preferred, and assign relative weights. Configure the experience target before reviewing the resume. Upload a text based PDF, DOCX or text file, or paste text. The public Python deployment supports all three document formats.
+RoleLens turns resumes into traceable role-alignment reports. Its Python engine uses regular expressions, with recruiters responsible for decisions.
 
-## 03 / MATCHING
+## 02 / Upload a job description
 
-The sample scores ninety five against this role. That is a resume alignment score, not a project evaluation score or a probability of success. Action evidence gets full credit, mentions receive partial credit, and learning receives less. Every requirement links to the source lines behind it.
+Start with a job description. Upload a text-based P D F, Word document or text file, then select Extract J D fields.
 
-## 04 / PARSING
+## 03 / Inspect the draft and its source
 
-Employment intervals are merged before duration is calculated. These overlapping jobs contribute forty eight unique months, rather than fifty four. The resume claims five years, but claims never replace dated evidence. Name and email are extracted separately and do not contribute to the score.
+Review the extracted title, known skills, alternatives and experience target. Source lines explain the draft. Warnings identify defaults and information needing manual review.
 
-## 05 / RECOMMENDATIONS
+## 04 / An editable rubric, before scoring
 
-Now make Kubernetes required. The numerical score stays the same because its weight did not change, but the recommendation changes. The system asks the recruiter to clarify the required skill gap before an interview decision. This keeps a high total from hiding a missing requirement.
+Apply the draft to the role. Adjust priorities and weights. Java OR Python accepts either language, awarding its group credit once.
 
-## 06 / JSON AND REPORTS
+## 05 / Choose a supported resume file
 
-Export a versioned JSON report and reopen that same file to retain its original rubric and analysis date. Imports validate the schema and check score consistency. The offline command line saves JSON atomically. Printable HTML includes the audit details, and CSV exports neutralize spreadsheet formulas.
+Next, upload the fictional resume. File selection clears pasted resume text. Choose Analyze role alignment to run the shared Python engine.
 
-## 07 / ENGINEERING
+## 06 / Review the documented match
 
-Verification covers extraction, independently calculated scores, invalid inputs, JSON storage, HTTP uploads, exports and the offline command line. The release has one hundred and five Python tests and six interface behavior tests. Continuous integration also builds the production container and exercises its HTTP flow.
+This trainee example earns seventy-eight point three three. With no experience minimum, points come entirely from skills. The score measures rubric alignment.
 
-## 08 / RESPONSIBLE USE
+## 07 / Read the text behind each point
 
-Damaged, encrypted, empty and unsupported files produce actionable errors. Scanned PDFs need external OCR, and unusual layouts still require review. The twelve case synthetic benchmark is a regression check, not proof of real world accuracy. Use the offline tool for real candidate data. RoleLens makes the evidence clearer while the recruiter remains accountable.
+Each requirement shows source lines, status and points. Action evidence earns full credit. Mentions and learning earn partial credit; unsupported skills earn zero.
+
+## 08 / A separate example: overlapping jobs
+
+In the backend sample, overlapping jobs count once, producing forty-eight months. Claimed years remain separate. Names and contact details never increase the score.
+
+## 09 / Required evidence changes the next step
+
+Now require Kubernetes and rerun that sample. Despite ninety-five points, the recommendation flags the required learning-stage gap and requests clarification.
+
+## 10 / Download, validate and reopen
+
+Export J S O N, C S V and printable H T M L. Reopen J S O N to validate score consistency and restore its original rubric and date.
+
+## 11 / Clear errors, usable controls
+
+An invalid P D F produces a clear error. Controls remain usable. Reloading the sample and analyzing again restores a valid result.
+
+## 12 / Real JSON files on disk
+
+The offline command line uses the same engine. This verified run saved a J S O N file and reopened the identical report.
+
+## 13 / Checks against the current source
+
+Verification passes one hundred and fifty-two Python tests, ten interface tests and twelve synthetic parsing cases. Linux checks also verify the container.
+
+## 14 / Clearer evidence. Accountable decisions.
+
+RoleLens combines J D drafting, evidence-linked matching and portable reports. Claims need verification. Scanned documents need external text recognition. The recruiter makes the decision.

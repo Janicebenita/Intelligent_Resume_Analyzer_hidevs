@@ -1,0 +1,150 @@
+{
+  "seconds": 216.64000000000004,
+  "voice": "en-IN-PrabhatNeural",
+  "rate": "-10%",
+  "audio_lead_seconds": 0.45,
+  "tail_seconds": 0.95,
+  "source_commit": "b55d39e",
+  "scenes": [
+    {
+      "scene": 1,
+      "start": 0,
+      "narration_start": 0.45,
+      "narration_end": 13.53,
+      "end": 14.48,
+      "image": "01-home.jpg",
+      "title": "Evidence before decisions",
+      "speech": "RoleLens turns resumes into traceable role-alignment reports. Its Python engine uses regular expressions, with recruiters responsible for decisions."
+    },
+    {
+      "scene": 2,
+      "start": 14.48,
+      "narration_start": 14.93,
+      "narration_end": 26.93,
+      "end": 27.88,
+      "image": "20-jd-upload.jpg",
+      "title": "Upload a job description",
+      "speech": "Start with a job description. Upload a text-based P D F, Word document or text file, then select Extract J D fields."
+    },
+    {
+      "scene": 3,
+      "start": 27.88,
+      "narration_start": 28.33,
+      "narration_end": 44.818,
+      "end": 45.768,
+      "image": "jd-review-pair.png",
+      "title": "Inspect the draft and its source",
+      "speech": "Review the extracted title, known skills, alternatives and experience target. Source lines explain the draft. Warnings identify defaults and information needing manual review."
+    },
+    {
+      "scene": 4,
+      "start": 45.768,
+      "narration_start": 46.218,
+      "narration_end": 59.034,
+      "end": 59.984,
+      "image": "23-jd-applied.jpg",
+      "title": "An editable rubric, before scoring",
+      "speech": "Apply the draft to the role. Adjust priorities and weights. Java OR Python accepts either language, awarding its group credit once."
+    },
+    {
+      "scene": 5,
+      "start": 59.984,
+      "narration_start": 60.434,
+      "narration_end": 73.61,
+      "end": 74.56,
+      "image": "24-resume-upload.jpg",
+      "title": "Choose a supported resume file",
+      "speech": "Next, upload the fictional resume. File selection clears pasted resume text. Choose Analyze role alignment to run the shared Python engine."
+    },
+    {
+      "scene": 6,
+      "start": 74.56,
+      "narration_start": 75.01,
+      "narration_end": 89.506,
+      "end": 90.456,
+      "image": "25-jd-match.jpg",
+      "title": "Review the documented match",
+      "speech": "This trainee example earns seventy-eight point three three. With no experience minimum, points come entirely from skills. The score measures rubric alignment."
+    },
+    {
+      "scene": 7,
+      "start": 90.456,
+      "narration_start": 90.906,
+      "narration_end": 106.386,
+      "end": 107.336,
+      "image": "26-jd-evidence.jpg",
+      "title": "Read the text behind each point",
+      "speech": "Each requirement shows source lines, status and points. Action evidence earns full credit. Mentions and learning earn partial credit; unsupported skills earn zero."
+    },
+    {
+      "scene": 8,
+      "start": 107.336,
+      "narration_start": 107.786,
+      "narration_end": 123.146,
+      "end": 124.096,
+      "image": "09-dates.jpg",
+      "title": "A separate example: overlapping jobs",
+      "speech": "In the backend sample, overlapping jobs count once, producing forty-eight months. Claimed years remain separate. Names and contact details never increase the score."
+    },
+    {
+      "scene": 9,
+      "start": 124.096,
+      "narration_start": 124.546,
+      "narration_end": 137.938,
+      "end": 138.888,
+      "image": "14-required-gap.jpg",
+      "title": "Required evidence changes the next step",
+      "speech": "Now require Kubernetes and rerun that sample. Despite ninety-five points, the recommendation flags the required learning-stage gap and requests clarification."
+    },
+    {
+      "scene": 10,
+      "start": 138.888,
+      "narration_start": 139.338,
+      "narration_end": 153.402,
+      "end": 154.352,
+      "image": "report-pair.png",
+      "title": "Download, validate and reopen",
+      "speech": "Export J S O N, C S V and printable H T M L. Reopen J S O N to validate score consistency and restore its original rubric and date."
+    },
+    {
+      "scene": 11,
+      "start": 154.352,
+      "narration_start": 154.802,
+      "narration_end": 168.506,
+      "end": 169.456,
+      "image": "recovery-pair.png",
+      "title": "Clear errors, usable controls",
+      "speech": "An invalid P D F produces a clear error. Controls remain usable. Reloading the sample and analyzing again restores a valid result."
+    },
+    {
+      "scene": 12,
+      "start": 169.456,
+      "narration_start": 169.906,
+      "narration_end": 182.074,
+      "end": 183.024,
+      "image": "cli-proof.png",
+      "title": "Real JSON files on disk",
+      "speech": "The offline command line uses the same engine. This verified run saved a J S O N file and reopened the identical report."
+    },
+    {
+      "scene": 13,
+      "start": 183.024,
+      "narration_start": 183.474,
+      "narration_end": 196.89,
+      "end": 197.84,
+      "image": "verification.png",
+      "title": "Checks against the current source",
+      "speech": "Verification passes one hundred and fifty-two Python tests, ten interface tests and twelve synthetic parsing cases. Linux checks also verify the container."
+    },
+    {
+      "scene": 14,
+      "start": 197.84,
+      "narration_start": 198.29,
+      "narration_end": 215.69,
+      "end": 216.64,
+      "image": "19-boundaries.jpg",
+      "title": "Clearer evidence. Accountable decisions.",
+      "speech": "RoleLens combines J D drafting, evidence-linked matching and portable reports. Claims need verification. Scanned documents need external text recognition. The recruiter makes the decision."
+    }
+  ]
+}
