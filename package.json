@@ -1,0 +1,18 @@
+{
+  "name": "rolelens-ui-checks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint app/static/app.js",
+    "test": "node --test tests/ui.test.mjs",
+    "format": "prettier --write app/static app/templates package.json eslint.config.js",
+    "format:check": "prettier --check app/static app/templates package.json eslint.config.js"
+  },
+  "devDependencies": {
+    "eslint": "10.15.0",
+    "@eslint/js": "10.0.1",
+    "globals": "17.14.0",
+    "prettier": "3.10.1",
+    "jsdom": "31.0.1"
+  }
+}

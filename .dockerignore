@@ -1,0 +1,10 @@
+.git
+.venv
+.env
+.vercel
+node_modules
+artifacts
+data
+docs/private
+__pycache__
+*.log

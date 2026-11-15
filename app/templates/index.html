@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Evidence-led Python resume analysis with transparent matching, dated employment and portable reports."
+    />
+    <title>RoleLens — Evidence before decisions</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <script defer src="/static/app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="RoleLens home"
+        ><span class="brand-icon">R<span>↗</span></span
+        >RoleLens<span class="brand-tag">RESUME INTELLIGENCE</span></a
+      >
+      <nav>
+        <a href="#workspace">Workspace</a><a href="#method">How it works</a
+        ><a href="/openapi.json" target="_blank" rel="noopener">API ↗</a
+        ><span class="engine-badge"><i></i> Python engine</span>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow"><span class="tiny-icon">◈</span> INTELLIGENT RESUME ANALYZER</p>
+          <h1>See the evidence.<br /><em>Understand the fit.</em></h1>
+          <p class="hero-description">
+            Turn a resume into a clear, traceable role analysis.<br />Every requirement. Every
+            point. Every question worth asking.
+          </p>
+          <div class="hero-chips">
+            <span>✓ Evidence-linked scoring</span><span>✓ Overlap-aware experience</span
+            ><span>✓ Portable JSON reports</span>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <div class="card-orbit">◎</div>
+          <p class="eyebrow">BUILT FOR THOUGHTFUL REVIEW</p>
+          <h2>Clarity at every step.</h2>
+          <div class="mini-flow">
+            <span>01 <b>Extract</b></span
+            ><span>02 <b>Match</b></span
+            ><span>03 <b>Review</b></span>
+          </div>
+          <p>Human judgment stays in the loop.<br />Identity stays out of the score.</p>
+        </aside>
+      </section>
+      <div class="privacy-notice">
+        <span aria-hidden="true">♧</span>
+        <p>
+          <b>Synthetic demo workspace.</b> Use sample or synthetic resumes here. Documents are
+          processed on the server; the application keeps no shared history and calls no external AI
+          provider. Use the offline CLI for real candidate data.
+        </p>
+      </div>
+      <section id="workspace" class="workspace">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">YOUR ANALYSIS WORKSPACE</p>
+            <h2>From document to decision support.</h2>
+          </div>
+          <button type="button" id="load-demo" class="button secondary">↗ Explore sample</button>
+        </div>
+        <div class="workspace-grid">
+          <form id="analysis-form" class="input-panel">
+            <div class="step-title">
+              <span>01</span>
+              <div>
+                <h3>Define the role</h3>
+                <p>Choose the requirements before reviewing the resume.</p>
+              </div>
+            </div>
+            <label for="job-title">Job title</label
+            ><input
+              id="job-title"
+              name="title"
+              placeholder="e.g. Backend Python Engineer"
+              minlength="2"
+              maxlength="120"
+              required
+            />
+            <label for="requirements"
+              >Skills &amp; priorities <span class="label-note">one per line</span></label
+            ><textarea
+              id="requirements"
+              rows="6"
+              placeholder="Python | required | 3&#10;FastAPI | required | 2&#10;Docker | preferred | 1"
+              required
+            ></textarea>
+            <p class="field-help">
+              Format: skill | required or preferred | weight (1–10). A larger weight allocates more
+              points. Marking a skill required flags gaps; it does not change its weight.
+            </p>
+            <div class="form-row">
+              <div>
+                <label for="minimum-years">Minimum years</label
+                ><input
+                  id="minimum-years"
+                  type="number"
+                  min="0"
+                  max="50"
+                  step="0.5"
+                  value="3"
+                  required
+                />
+              </div>
+              <div>
+                <label for="experience-weight">Experience points</label
+                ><input
+                  id="experience-weight"
+                  type="number"
+                  min="0"
+                  max="50"
+                  step="1"
+                  value="20"
+                  required
+                />
+              </div>
+            </div>
+            <label for="as-of">Analysis date</label
+            ><input
+              id="as-of"
+              type="date"
+              min="1970-01-01"
+              max="{{ today }}"
+              value="{{ today }}"
+              required
+            />
+            <div class="step-title second-step">
+              <span>02</span>
+              <div>
+                <h3>Add a resume</h3>
+                <p>Text-based PDF, DOCX or TXT · up to 2 MiB</p>
+              </div>
+            </div>
+            <label for="resume-file" class="file-label"
+              >↑ Choose document<input id="resume-file" type="file" accept=".pdf,.docx,.txt" /><span
+                id="file-name"
+                >No document selected</span
+              ></label
+            >
+            <label for="resume-text">Or paste resume text</label
+            ><textarea
+              id="resume-text"
+              rows="9"
+              maxlength="100000"
+              placeholder="Name&#10;email@example.com&#10;SKILLS&#10;Python, SQL&#10;EXPERIENCE&#10;Developer | Jan 2021 - Dec 2024&#10;Built Python services..."
+            ></textarea>
+            <p class="field-help">
+              Use English headings such as Skills, Experience, Projects and Education for the most
+              reliable extraction.
+            </p>
+            <button class="button primary" id="analyze-button" type="submit">
+              Analyze role alignment <span>→</span>
+            </button>
+            <p class="form-footer">No API key. No hidden model score. No automated hire/reject.</p>
+          </form>
+          <div class="results-panel">
+            <div class="results-toolbar">
+              <span class="eyebrow">03 / REVIEW THE EVIDENCE</span
+              ><label class="import-label" for="import-file"
+                >↥ Open JSON<input id="import-file" type="file" accept=".json" hidden
+              /></label>
+            </div>
+            <div id="status" role="status" aria-live="polite"></div>
+            <div id="error" role="alert" hidden></div>
+            <div id="empty-state">
+              <div class="empty-graphic"><span>▤</span><i>✓</i></div>
+              <h3>A clearer picture starts here.</h3>
+              <p>
+                Add your role and a synthetic resume,<br />or explore the sample to see the full
+                analysis.
+              </p>
+              <div class="empty-features">
+                <span>↗ Requirement evidence</span><span>◷ Employment timeline</span
+                ><span>↓ JSON, CSV &amp; print reports</span>
+              </div>
+            </div>
+            <div id="report-output" hidden></div>
+            <div id="export-bar" hidden>
+              <span>Take the evidence with you</span>
+              <div>
+                <button type="button" class="button small" data-export="json">JSON ↓</button
+                ><button type="button" class="button small" data-export="csv">CSV ↓</button
+                ><button type="button" class="button small" data-export="html">
+                  Print report ↗
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="method" class="method">
+        <div>
+          <p class="eyebrow">A RUBRIC YOU CAN INSPECT</p>
+          <h2>Useful precision.<br />Honest boundaries.</h2>
+          <p>This is text evidence, not a verdict.<br />The recruiter verifies what comes next.</p>
+        </div>
+        <div class="method-cards">
+          <article>
+            <span>01 / EXTRACT</span>
+            <h3>Preserve the source.</h3>
+            <p>
+              Names, email, skill evidence and dated employment are extracted with line references
+              and parsing warnings.
+            </p>
+          </article>
+          <article>
+            <span>02 / MATCH</span>
+            <h3>Show the calculation.</h3>
+            <p>
+              Weighted skills plus capped experience total 100 points. Concurrent employment counts
+              once. Learning receives partial credit.
+            </p>
+          </article>
+          <article>
+            <span>03 / REVIEW</span>
+            <h3>Ask better questions.</h3>
+            <p>
+              See gaps, verify uncertain claims, and export the complete rubric and evidence. Scores
+              never use personal characteristics.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <a class="brand" href="/"
+        >RoleLens<span class="footer-note">Evidence before decisions.</span></a
+      >
+      <p>Python + regular expressions · v1.0 · Recruiter decision-support prototype</p>
+    </footer>
+  </body>
+</html>

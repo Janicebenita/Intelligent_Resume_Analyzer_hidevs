@@ -1,0 +1,37 @@
+{
+  "title": "Backend Python Engineer",
+  "requirements": [
+    {
+      "skill": "Python",
+      "importance": "required",
+      "weight": 3
+    },
+    {
+      "skill": "FastAPI",
+      "importance": "required",
+      "weight": 2
+    },
+    {
+      "skill": "PostgreSQL",
+      "importance": "required",
+      "weight": 2
+    },
+    {
+      "skill": "Docker",
+      "importance": "required",
+      "weight": 2
+    },
+    {
+      "skill": "Testing",
+      "importance": "required",
+      "weight": 2
+    },
+    {
+      "skill": "Kubernetes",
+      "importance": "preferred",
+      "weight": 1
+    }
+  ],
+  "minimum_years": 4.0,
+  "experience_weight": 20
+}

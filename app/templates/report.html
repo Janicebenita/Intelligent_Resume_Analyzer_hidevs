@@ -1,0 +1,244 @@
+{% if standalone %}<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RoleLens analysis report</title>
+    <style>
+      body {
+        font:
+          16px/1.6 system-ui,
+          sans-serif;
+        max-width: 1080px;
+        margin: 40px auto;
+        padding: 24px;
+        color: #14233b;
+      }
+      h1,
+      h2,
+      h3 {
+        line-height: 1.2;
+      }
+      h2 {
+        margin-top: 32px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        text-align: left;
+        vertical-align: top;
+        padding: 12px;
+        border-bottom: 1px solid #dbe3ed;
+      }
+      th {
+        background: #edf3fa;
+      }
+      .summary-grid {
+        display: flex;
+        gap: 28px;
+      }
+      .metric {
+        padding: 18px;
+        background: #f2f6fb;
+        border-radius: 16px;
+        flex: 1;
+      }
+      .score {
+        font-size: 42px;
+        font-weight: 800;
+        color: #006b66;
+      }
+      .pill {
+        background: #e5f5f1;
+        padding: 3px 8px;
+        border-radius: 6px;
+      }
+      .muted {
+        color: #546278;
+      }
+      .evidence {
+        font-size: 13px;
+        display: block;
+      }
+      .notice {
+        padding: 16px;
+        background: #fff5df;
+        border-left: 3px solid #b97c08;
+      }
+      footer {
+        margin-top: 40px;
+        font-size: 12px;
+      }
+      @media print {
+        body {
+          margin: 0;
+          font-size: 11px;
+        }
+        tr,
+        .metric {
+          break-inside: avoid;
+        }
+        a {
+          color: inherit;
+        }
+        h2 {
+          break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>RoleLens / Analysis report</h1>
+      <p>Evidence before decisions.</p>
+    </header>
+    {% endif %}
+    <article class="analysis-report">
+      <div class="report-heading">
+        <div>
+          <p class="eyebrow">EVIDENCE-LED ROLE ALIGNMENT</p>
+          <h2>{{ report.job.title }}</h2>
+          <p class="muted">
+            Analysis date {{ report.as_of }} · Rubric {{ report.algorithm_version }}
+          </p>
+        </div>
+        <span class="report-mark">RECRUITER REVIEW</span>
+      </div>
+      <div class="summary-grid">
+        <div class="metric score-metric">
+          <span class="metric-label">Documented match</span
+          ><strong class="score">{{ '%.2f'|format(report.match_score) }}<small>/100</small></strong
+          ><span class="muted">Rubric alignment, not hiring probability</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Skills evidence</span
+          ><strong
+            >{{ '%.2f'|format(report.skills_points) }}
+            <small>/ {{ 100-report.job.experience_weight }}</small></strong
+          ><span class="muted">{{ report.rows|length }} weighted requirements</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Dated employment</span
+          ><strong>{{ report.resume.experience_months }} <small>months</small></strong
+          ><span class="muted"
+            >{{ '%.2f'|format(report.experience_points) }} / {{ report.job.experience_weight }}
+            points · overlap removed</span
+          >
+        </div>
+      </div>
+      <section class="recommendation">
+        <span class="eyebrow">RECOMMENDED NEXT STEP</span>
+        <h3>{{ report.recommendation }}</h3>
+        <p>
+          A recruiter must verify evidence and make the decision. Missing evidence is not proof of
+          missing ability.
+        </p>
+      </section>
+      <h3>Requirement-by-requirement evidence</h3>
+      <p class="muted">
+        Action evidence 100% · Mention 60% · Learning 25% · Negated / not found 0%. Points = skills
+        budget × weight share × evidence factor.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Job requirement</th>
+              <th>Text evidence</th>
+              <th>Weight</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in report.rows %}
+            <tr>
+              <td>
+                <b>{{ row.skill }}</b><span class="evidence muted">{{ row.importance }}</span>
+              </td>
+              <td>
+                <span class="pill status-{{ row.status }}">{{ row.status|replace('_',' ') }}</span
+                >{% for e in row.evidence %}<span class="evidence"
+                  >L{{ e.line }} · {{ e.section }} — {{ e.text }}</span
+                >{% endfor %}
+              </td>
+              <td>{{ row.weight }}</td>
+              <td>{{ '%.2f'|format(row.points) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="detail-grid">
+        <section>
+          <h3>Follow-up questions</h3>
+          <ol>
+            {% for step in report.next_steps %}
+            <li>{{ step }}</li>
+            {% endfor %}
+          </ol>
+        </section>
+        <section>
+          <h3>Parsing checks</h3>
+          {% if report.resume.warnings %}
+          <ul>
+            {% for warning in report.resume.warnings %}
+            <li>{{ warning }}</li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p>No extraction warnings. Claims still require verification.</p>
+          {% endif %}
+        </section>
+      </div>
+      <details>
+        <summary>Employment calculation &amp; extracted contact details</summary>
+        <p>Contact fields are excluded from scoring. Confirm extraction before use.</p>
+        <p>
+          <b>Name:</b> {{ report.resume.name or 'Not confidently detected' }} · <b>Email:</b> {{
+          report.resume.email or 'Not found' }}
+        </p>
+        <p>
+          Claimed years: {{ report.resume.claimed_years if report.resume.claimed_years is not none
+          else 'Not stated' }}. Only dated intervals contribute to the experience component. Past
+          end months are inclusive; Present counts completed months. Year-only dates use January
+          boundaries and are approximate.
+        </p>
+        {% for interval in report.resume.employment %}
+        <p class="evidence">
+          L{{ interval.evidence.line }} · {{ interval.evidence.text }} → {{ interval.start }} to {{
+          interval.end }} (exclusive; {{ interval.precision }} precision)
+        </p>
+        {% endfor %}
+        <p>
+          Experience points = {{ report.job.experience_weight }} × min(1, months ÷ {{
+          report.job.minimum_years }} ÷ 12). The experience budget is zero when no minimum is
+          configured.
+        </p>
+      </details>
+      <details>
+        <summary>Limitations, provenance &amp; responsible use</summary>
+        <ul>
+          {% for limitation in report.limitations %}
+          <li>{{ limitation }}</li>
+          {% endfor %}
+        </ul>
+        <p>
+          No external AI model is called. This is a deterministic Python text-analysis prototype.
+        </p>
+        <p class="evidence">
+          Report {{ report.id }} · Created {{ report.created_at }} · {{ report.resume.source_type }}
+          · {{ report.resume.line_count }} lines<br />Normalized-text SHA-256: {{
+          report.resume.source_sha256 }}
+        </p>
+      </details>
+    </article>
+    {% if standalone %}
+    <footer>
+      RoleLens · Intelligent Resume Analyzer · Private report: store and share responsibly.
+    </footer>
+  </body>
+</html>
+{% endif %}

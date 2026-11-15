@@ -1,0 +1,68 @@
+name: Quality and container verification
+on:
+  push:
+    branches: [main, 'codex/**']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff
+        with:
+          version: '0.12.17'
+      - name: Install locked Python environment
+        run: uv sync --frozen --extra dev
+      - name: Strict lint, formatting and types
+        run: |
+          uv run ruff check app tests scripts
+          uv run ruff format --check app tests scripts
+          uv run mypy app
+      - name: Application and HTTP integration tests (95% coverage gate)
+        run: uv run pytest --cov=app --cov-report=term-missing --cov-report=xml:artifacts/coverage.xml --junitxml=artifacts/junit.xml
+      - name: Labeled synthetic parser evaluation
+        run: uv run python -m scripts.evaluate
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - name: UI lint, formatting and DOM behavior
+        run: |
+          npm ci --ignore-scripts
+          npm run lint
+          npm run format:check
+          npm test
+      - name: Upload actual verification artifacts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: verification-results
+          path: artifacts/
+  container:
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Build non-root production container
+        run: docker build -t rolelens:test .
+      - name: Verify the complete container HTTP flow
+        run: |
+          docker run -d --name rolelens -p 7860:7860 rolelens:test
+          for attempt in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:7860/health && break
+            sleep 1
+          done
+          python scripts/smoke.py --url http://127.0.0.1:7860
+      - name: Container diagnostics
+        if: failure()
+        run: docker logs rolelens
