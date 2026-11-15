@@ -41,10 +41,76 @@
         gap: 28px;
       }
       .metric {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
         padding: 18px;
         background: #f2f6fb;
         border-radius: 16px;
         flex: 1;
+      }
+      .metric-label {
+        font-size: 13px;
+        color: #546278;
+      }
+      .metric strong {
+        display: block;
+        font-size: 30px;
+        line-height: 1.2;
+      }
+      .metric small {
+        font-size: 16px;
+        color: #546278;
+      }
+      .metric > .muted {
+        font-size: 12px;
+      }
+      .report-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 24px;
+      }
+      .report-mark {
+        font-size: 10px;
+        padding: 5px 9px;
+        border: 1px solid #dbe3ed;
+        border-radius: 4px;
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: #006b66;
+        font-weight: 700;
+      }
+      .recommendation {
+        margin: 24px 0;
+        padding: 18px;
+        background: #edf5f2;
+        border-left: 3px solid #006b66;
+      }
+      .recommendation h3 {
+        margin: 10px 0;
+      }
+      .recommendation p {
+        margin-bottom: 0;
+      }
+      details {
+        border-top: 1px solid #dbe3ed;
+        padding: 16px 0;
+        font-size: 13px;
+      }
+      summary {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      @media (max-width: 640px) {
+        .summary-grid {
+          flex-direction: column;
+        }
+        .report-heading {
+          display: block;
+        }
       }
       .score {
         font-size: 42px;
