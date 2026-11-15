@@ -184,7 +184,10 @@ def journey():
         (44, 137), "01—05  /  INPUT, VALIDATION & EXTRACTION", font=font(16, True), fill="#51d7ee"
     )
     draw.text(
-        (350, 537), "06—10  /  MATCHING, REPORTS & HUMAN REVIEW", font=font(16, True), fill="#c1a4ff"
+        (350, 537),
+        "06—10  /  MATCHING, REPORTS & HUMAN REVIEW",
+        font=font(16, True),
+        fill="#c1a4ff",
     )
     boxes = []
     for index, (title, first, second, tag, symbol) in enumerate(stages):
