@@ -11,6 +11,21 @@ const demo = {text:"Alex Morgan\nalex@example.com\nSKILLS\nPython",as_of:"2025-0
   job:{title:"Python Engineer",requirements:[{skill:"Python",importance:"required",weight:3}],minimum_years:2,experience_weight:20}};
 const result = {report:{id:"a".repeat(32),match_score:60},html:"<h2>Python Engineer</h2><p>60 points</p>"};
 
+test("in-flight work locks the rubric to avoid displaying a score for changed inputs", async () => {
+  let finish;
+  const pending = new Promise((resolve) => { finish = resolve; });
+  const dom = setup(async () => pending);
+  const doc = dom.window.document;
+  doc.getElementById("load-demo").click();
+  assert.equal(doc.getElementById("requirements").disabled, true);
+  assert.equal(doc.getElementById("resume-file").disabled, true);
+  finish({ ok: true, json: async () => demo });
+  await settle();
+  assert.equal(doc.getElementById("requirements").disabled, false);
+  assert.equal(doc.getElementById("resume-file").disabled, false);
+  dom.window.close();
+});
+
 function setup(fetch) {
   const dom = new JSDOM(html, {url:"http://localhost/",runScripts:"outside-only"});
   dom.window.fetch = fetch;

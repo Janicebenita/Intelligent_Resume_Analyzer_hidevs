@@ -15,7 +15,11 @@
 
 **📄 Parse → 🧩 Match → 🔍 Inspect → 📦 Export**
 
+[🚀 Open the live Python app](https://rolelens-resume-mu.vercel.app) · [🧪 Inspect the CI results](https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions)
+
 </div>
+
+![RoleLens live workspace](docs/screenshots/workspace.jpg)
 
 RoleLens turns a resume and a recruiter-defined job rubric into a transparent 0–100 alignment report. Every skill point links to source text. Dated employment is calculated without double-counting concurrent roles. Missing evidence and extraction uncertainties are visible alongside practical follow-up questions.
 
@@ -35,6 +39,10 @@ RoleLens turns a resume and a recruiter-defined job rubric into a transparent 0�
 | 📦 Save and reopen | Versioned JSON, schema validation and recalculated score consistency on import; atomic local saves |
 | 📝 Share a professional report | Escaped standalone HTML for Print/Save as PDF, JSON, spreadsheet-safe CSV |
 | 🧯 Recover from bad input | Typed errors for damaged, encrypted, empty, scanned, oversized or unsupported files |
+
+![A traceable sample analysis](docs/screenshots/analysis.jpg)
+
+*The sample's 95/100 is a resume-to-role rubric score, not a project evaluation score. All displayed candidate information is synthetic.*
 
 ### 🚀 Run locally
 

@@ -21,6 +21,11 @@ function setBusy(busy, message = "") {
   controls.forEach((id) => {
     byId(id).disabled = busy;
   });
+  byId("analysis-form")
+    .querySelectorAll("input, textarea, button")
+    .forEach((control) => {
+      control.disabled = busy;
+    });
   byId("status").textContent = message;
   byId("error").hidden = true;
   byId("analysis-form").setAttribute("aria-busy", String(busy));

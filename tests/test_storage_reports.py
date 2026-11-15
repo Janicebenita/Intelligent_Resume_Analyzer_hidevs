@@ -33,6 +33,24 @@ def test_modified_score_is_rejected(report):
         load_report(json.dumps(data).encode())
 
 
+@pytest.mark.parametrize("alteration", ["months", "dates", "duplicate", "no_evidence", "hash"])
+def test_inconsistent_imported_source_evidence_is_rejected(report, alteration):
+    data = report.model_dump(mode="json")
+    resume = data["resume"]
+    if alteration == "months":
+        resume["experience_months"] += 12
+    elif alteration == "dates":
+        resume["employment"][0]["start"] = "2029-01-01"
+    elif alteration == "duplicate":
+        resume["skills"].append(resume["skills"][0])
+    elif alteration == "no_evidence":
+        resume["skills"][0]["evidence"] = []
+    else:
+        resume["source_sha256"] = "not-a-hash"
+    with pytest.raises(AnalysisError, match="valid RoleLens"):
+        load_report(json.dumps(data).encode())
+
+
 @pytest.mark.parametrize("identifier", ["../secret", "a/b", "x" * 32, "a" * 31])
 def test_path_traversal_and_invalid_ids(identifier, tmp_path):
     with pytest.raises(AnalysisError):
@@ -67,6 +85,7 @@ def test_html_escapes_candidate_and_job_content(report):
     assert "&lt;script&gt;" in html
     assert "<!doctype html>" in html
     assert report.id in html and "SHA-256" in html
+    assert html.count("<details open>") == 2
 
 
 def test_csv_neutralizes_formulas(report):

@@ -1,0 +1,452 @@
+{
+  "schema_version": "1.0",
+  "algorithm_version": "rolelens-1.0",
+  "id": "9d09b1f07d6e4ee893a04663ba2f485a",
+  "created_at": "2026-11-15T14:18:42.902932Z",
+  "as_of": "2025-01-01",
+  "job": {
+    "title": "Backend Python Engineer",
+    "requirements": [
+      {
+        "skill": "Python",
+        "importance": "required",
+        "weight": 3
+      },
+      {
+        "skill": "FastAPI",
+        "importance": "required",
+        "weight": 2
+      },
+      {
+        "skill": "PostgreSQL",
+        "importance": "required",
+        "weight": 2
+      },
+      {
+        "skill": "Docker",
+        "importance": "required",
+        "weight": 2
+      },
+      {
+        "skill": "Testing",
+        "importance": "required",
+        "weight": 2
+      },
+      {
+        "skill": "Kubernetes",
+        "importance": "preferred",
+        "weight": 1
+      }
+    ],
+    "minimum_years": 4.0,
+    "experience_weight": 20
+  },
+  "resume": {
+    "name": "Alex Morgan",
+    "email": "alex.morgan@example.com",
+    "skills": [
+      {
+        "skill": "Python",
+        "status": "evidenced",
+        "evidence": [
+          {
+            "line": 9,
+            "text": "Built Python and FastAPI services backed by PostgreSQL for an inventory platform.",
+            "section": "experience"
+          },
+          {
+            "line": 12,
+            "text": "Deployed Docker services and designed REST APIs with Python.",
+            "section": "experience"
+          },
+          {
+            "line": 14,
+            "text": "Built an open-source Python log analyzer with automated tests.",
+            "section": "projects"
+          }
+        ]
+      },
+      {
+        "skill": "JavaScript",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "TypeScript",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "Java",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "C++",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "C#",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "SQL",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "PostgreSQL",
+        "status": "evidenced",
+        "evidence": [
+          {
+            "line": 9,
+            "text": "Built Python and FastAPI services backed by PostgreSQL for an inventory platform.",
+            "section": "experience"
+          }
+        ]
+      },
+      {
+        "skill": "MySQL",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "MongoDB",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "FastAPI",
+        "status": "evidenced",
+        "evidence": [
+          {
+            "line": 9,
+            "text": "Built Python and FastAPI services backed by PostgreSQL for an inventory platform.",
+            "section": "experience"
+          }
+        ]
+      },
+      {
+        "skill": "Django",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "Flask",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "React",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "Node.js",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "Git",
+        "status": "mentioned",
+        "evidence": [
+          {
+            "line": 6,
+            "text": "Python, PostgreSQL, Docker, Git, AWS, FastAPI",
+            "section": "skills"
+          }
+        ]
+      },
+      {
+        "skill": "Docker",
+        "status": "evidenced",
+        "evidence": [
+          {
+            "line": 12,
+            "text": "Deployed Docker services and designed REST APIs with Python.",
+            "section": "experience"
+          }
+        ]
+      },
+      {
+        "skill": "Kubernetes",
+        "status": "learning",
+        "evidence": [
+          {
+            "line": 15,
+            "text": "Currently learning Kubernetes.",
+            "section": "projects"
+          }
+        ]
+      },
+      {
+        "skill": "AWS",
+        "status": "mentioned",
+        "evidence": [
+          {
+            "line": 6,
+            "text": "Python, PostgreSQL, Docker, Git, AWS, FastAPI",
+            "section": "skills"
+          }
+        ]
+      },
+      {
+        "skill": "Azure",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "GCP",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "Pandas",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "NumPy",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "Machine Learning",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "PyTorch",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "TensorFlow",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "scikit-learn",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "REST APIs",
+        "status": "evidenced",
+        "evidence": [
+          {
+            "line": 12,
+            "text": "Deployed Docker services and designed REST APIs with Python.",
+            "section": "experience"
+          }
+        ]
+      },
+      {
+        "skill": "Testing",
+        "status": "evidenced",
+        "evidence": [
+          {
+            "line": 10,
+            "text": "Implemented automated tests with pytest and maintained CI/CD pipelines.",
+            "section": "experience"
+          },
+          {
+            "line": 14,
+            "text": "Built an open-source Python log analyzer with automated tests.",
+            "section": "projects"
+          }
+        ]
+      },
+      {
+        "skill": "CI/CD",
+        "status": "evidenced",
+        "evidence": [
+          {
+            "line": 10,
+            "text": "Implemented automated tests with pytest and maintained CI/CD pipelines.",
+            "section": "experience"
+          }
+        ]
+      },
+      {
+        "skill": "Excel",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "Power BI",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "Tableau",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "Communication",
+        "status": "not_found",
+        "evidence": []
+      },
+      {
+        "skill": "Leadership",
+        "status": "not_found",
+        "evidence": []
+      }
+    ],
+    "employment": [
+      {
+        "start": "2021-01-01",
+        "end": "2024-01-01",
+        "precision": "month",
+        "evidence": {
+          "line": 8,
+          "text": "Backend Developer | Example Cloud Labs | Jan 2021 - Dec 2023",
+          "section": "experience"
+        }
+      },
+      {
+        "start": "2023-07-01",
+        "end": "2025-01-01",
+        "precision": "month",
+        "evidence": {
+          "line": 11,
+          "text": "Software Engineer | Sample Systems | Jul 2023 - Dec 2024",
+          "section": "experience"
+        }
+      }
+    ],
+    "experience_months": 48,
+    "claimed_years": 5.0,
+    "warnings": [
+      "Self-reported years are displayed separately and never substituted for dated evidence."
+    ],
+    "source_sha256": "559fcb55155b5b2721a3367a1aca6096b5282a23b376e31cd0a5cb18542a0aae",
+    "source_type": "text",
+    "line_count": 17
+  },
+  "match_score": 95.0,
+  "skills_points": 74.9999,
+  "experience_points": 20.0,
+  "rows": [
+    {
+      "skill": "Python",
+      "importance": "required",
+      "weight": 3,
+      "status": "evidenced",
+      "factor": 1.0,
+      "points": 20.0,
+      "evidence": [
+        {
+          "line": 9,
+          "text": "Built Python and FastAPI services backed by PostgreSQL for an inventory platform.",
+          "section": "experience"
+        },
+        {
+          "line": 12,
+          "text": "Deployed Docker services and designed REST APIs with Python.",
+          "section": "experience"
+        },
+        {
+          "line": 14,
+          "text": "Built an open-source Python log analyzer with automated tests.",
+          "section": "projects"
+        }
+      ]
+    },
+    {
+      "skill": "FastAPI",
+      "importance": "required",
+      "weight": 2,
+      "status": "evidenced",
+      "factor": 1.0,
+      "points": 13.3333,
+      "evidence": [
+        {
+          "line": 9,
+          "text": "Built Python and FastAPI services backed by PostgreSQL for an inventory platform.",
+          "section": "experience"
+        }
+      ]
+    },
+    {
+      "skill": "PostgreSQL",
+      "importance": "required",
+      "weight": 2,
+      "status": "evidenced",
+      "factor": 1.0,
+      "points": 13.3333,
+      "evidence": [
+        {
+          "line": 9,
+          "text": "Built Python and FastAPI services backed by PostgreSQL for an inventory platform.",
+          "section": "experience"
+        }
+      ]
+    },
+    {
+      "skill": "Docker",
+      "importance": "required",
+      "weight": 2,
+      "status": "evidenced",
+      "factor": 1.0,
+      "points": 13.3333,
+      "evidence": [
+        {
+          "line": 12,
+          "text": "Deployed Docker services and designed REST APIs with Python.",
+          "section": "experience"
+        }
+      ]
+    },
+    {
+      "skill": "Testing",
+      "importance": "required",
+      "weight": 2,
+      "status": "evidenced",
+      "factor": 1.0,
+      "points": 13.3333,
+      "evidence": [
+        {
+          "line": 10,
+          "text": "Implemented automated tests with pytest and maintained CI/CD pipelines.",
+          "section": "experience"
+        },
+        {
+          "line": 14,
+          "text": "Built an open-source Python log analyzer with automated tests.",
+          "section": "projects"
+        }
+      ]
+    },
+    {
+      "skill": "Kubernetes",
+      "importance": "preferred",
+      "weight": 1,
+      "status": "learning",
+      "factor": 0.25,
+      "points": 1.6667,
+      "evidence": [
+        {
+          "line": 15,
+          "text": "Currently learning Kubernetes.",
+          "section": "projects"
+        }
+      ]
+    }
+  ],
+  "missing_required": [],
+  "recommendation": "Consider a structured skills interview after verifying the evidence",
+  "next_steps": [
+    "Verify practical depth in Kubernetes; it is only learning in the resume."
+  ],
+  "limitations": [
+    "A match score measures this configured rubric; it is not a hiring decision or a success probability.",
+    "Resume claims are unverified. An action sentence is stronger text evidence, not proof of proficiency.",
+    "Employment duration is total dated employment, not verified years using any particular skill.",
+    "English section headings and Gregorian dates are supported. Scanned PDFs need external OCR.",
+    "Names, contact details and personal characteristics do not contribute to the match score."
+  ]
+}
