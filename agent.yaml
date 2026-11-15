@@ -1,0 +1,9 @@
+spec_version: "0.1.0"
+version: "1.0.0"
+name: rolelens-resume-analyzer
+description: >-
+  RoleLens is an evidence-based resume analysis agent that
+  extracts candidate information, evaluates job requirements
+  using a configurable weighted rubric, identifies skill gaps,
+  calculates employment duration, and produces transparent
+  reports with traceable source evidence.
