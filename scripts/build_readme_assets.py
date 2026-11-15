@@ -282,7 +282,7 @@ def journey():
         OUT / "rolelens-journey.gif",
         save_all=True,
         append_images=frames[1:],
-        duration=85,
+        duration=[6000 if index % 10 == 0 else 100 for index in range(len(frames))],
         loop=0,
         disposal=1,
         optimize=True,

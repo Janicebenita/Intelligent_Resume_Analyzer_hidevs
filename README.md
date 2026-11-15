@@ -20,7 +20,7 @@
 
 **📄 Parse → 🧩 Match → 🔍 Inspect → 📦 Export**
 
-[🚀 Open the live Python app](https://rolelens-resume-mu.vercel.app) · [🎬 Watch the 2:35 demo](https://youtu.be/zbdmmfNSYxw) · [🧪 Inspect the CI results](https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions)
+[🚀 Open the live Python app](https://rolelens-resume-mu.vercel.app) · [🎬 Watch the 2:36 demo](https://youtu.be/zbdmmfNSYxw) · [🧪 Inspect the CI results](https://github.com/Janicebenita/Intelligent_Resume_Analyzer_hidevs/actions)
 
 </div>
 
@@ -34,9 +34,9 @@ RoleLens turns a resume and a recruiter-defined job rubric into a transparent 0�
 
 ![Animated ten-stage RoleLens journey from defining a role through document validation, extraction, evidence parsing, date merging, weighted matching, gap handling and reports to human review](docs/assets/rolelens-journey.gif)
 
-*Animated pipeline illustration of implemented stages. [Open the full-resolution static diagram](docs/assets/journey-poster.png). The banner is conceptual artwork; the product screenshots below show the actual application.*
+*Each stage stays highlighted for six seconds, followed by a brief transition. This is an animated illustration of implemented stages. [Open the full-resolution static diagram](docs/assets/journey-poster.png) to read at your own pace. The banner is conceptual artwork; the product screenshots below show the actual application.*
 
-The [Unlisted YouTube walkthrough](https://youtu.be/zbdmmfNSYxw) uses actual browser screenshots, synthetic candidate data and a Windows synthetic voice. It is not continuous screen recording. [Read the transcript](docs/DEMO_TRANSCRIPT.md).
+The [public YouTube walkthrough](https://youtu.be/zbdmmfNSYxw) on Janice Benita's channel uses actual browser screenshots, synthetic candidate data and a Windows synthetic voice. It is not continuous screen recording. [Read the transcript](docs/DEMO_TRANSCRIPT.md).
 
 ### ✨ What you can do
 

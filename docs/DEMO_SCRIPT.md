@@ -1,6 +1,6 @@
 # Demo plan — under three minutes
 
-Status: 2:35 narrated screenshot walkthrough published Unlisted at https://youtu.be/zbdmmfNSYxw. YouTube HD processing is complete. This is not continuous screen recording. No HiDevs submission has been made.
+Status: 2:36 narrated screenshot walkthrough published Public on Janice Benita's channel at https://youtu.be/zbdmmfNSYxw. The media file is 155.62 seconds; YouTube displays the rounded duration as 2:36. YouTube HD processing is complete. This is not continuous screen recording. No HiDevs submission has been made.
 
 Use synthetic example data only. Show the actual public deployment and its behavior, then the actual CI result. Do not describe coverage as accuracy or imply that the match score is a HiDevs project score.
 

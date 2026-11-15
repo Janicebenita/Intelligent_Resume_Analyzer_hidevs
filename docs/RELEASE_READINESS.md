@@ -1,6 +1,6 @@
 # Release readiness
 
-Status: **application and demo verified; final presentation review in progress; not submitted to HiDevs**.
+Status: **ready for user review; not submitted to HiDevs**.
 
 The project must be complete and verified, then receive Janice's explicit approval before submission. A passing workflow alone does not authorize submission.
 
@@ -15,8 +15,8 @@ The project must be complete and verified, then receive Janice's explicit approv
 | Linux container build and smoke | Passed in GitHub Actions run 43725343169 |
 | Public Python deployment | Live: https://rolelens-resume-mu.vercel.app; public HTTP smoke and browser PDF/DOCX analysis passed |
 | Automated deployment | Verified push-triggered production deployment for commit a0ef9fd; public smoke passed |
-| README and evidence | Developer details published; hero, animated journey and colourful feature cards prepared; final GitHub rendering check pending |
-| YouTube demo under three minutes | Published Unlisted: https://youtu.be/zbdmmfNSYxw; 155.62 seconds; YouTube HD complete and copyright check clear |
+| README and evidence | Developer details, hero, animated journey and colourful feature cards published; all images verified loading in GitHub; slow animation timing verified |
+| YouTube demo under three minutes | Published Public on Janice Benita's channel: https://youtu.be/zbdmmfNSYxw; 155.62 seconds (displayed 2:36); HD complete and copyright check clear |
 | HiDevs submission | Not authorized for this release; do not submit |
 
 Hugging Face was checked while signed in as janicecodes: Docker and CPU Basic were disabled on the new-Space form. No paid plan was activated. The user approved Vercel Hobby as the alternative.
@@ -29,6 +29,8 @@ Current verified application source: `ae7e36082ad669123a6d950dc09a1d4a5d76f7ff`,
 
 Janice explicitly approved expanding the existing Vercel installation to this repository only. Its other three repository selections were retained. The existing Vercel project is now connected to GitHub; no duplicate project was created. CI checks and Vercel builds run independently; do not claim deployment waits for all GitHub checks unless a release gate is separately configured.
 
-The demo uses actual browser screenshots and an installed Windows synthetic voice, rather than continuous screen recording. It is 1920×1080 H.264/AAC and decodes without errors after audio timestamp normalization. The video and screenshots contain synthetic candidate information only. YouTube confirmed publication as Unlisted, HD processing complete and no copyright issues. The description discloses the screenshot walkthrough and synthetic voice. Unlisted means accessible by link; it does not appear in the public channel's Videos tab.
+The demo uses actual browser screenshots and an installed Windows synthetic voice, rather than continuous screen recording. It is 1920×1080 H.264/AAC and decodes without errors after audio timestamp normalization. The video and screenshots contain synthetic candidate information only. The description discloses the screenshot walkthrough and synthetic voice. Janice explicitly requested Public visibility; this was saved and verified by reloading Studio. The public channel's Videos tab showed 8 videos with RoleLens first, confirming channel visibility. HD processing is complete and no copyright issues were found.
 
 The actual Git-triggered deployment for documentation commit `a0ef9fdccfe6518d2c4bd0ac34395ebce1df6c9a` is `dpl_AwYGBTzY5ToxmmHgcEtJc7m9N2zL`, production READY. GitHub reported the Vercel check successful, and CI run 43725927174 passed. The public Python HTTP smoke test passed after this deployment.
+
+README artwork introduced a line-length violation during a spacing adjustment. It was corrected in commit `43f3838`, and the complete quality/container workflow passed in run 43728072902. The final pacing change holds every stage for 6,000 ms and transitions for 900 ms; the encoded GIF was inspected and verified to have ten reading holds and a 69,000 ms loop. Subsequent presentation-only pushes remain subject to the same CI checks.

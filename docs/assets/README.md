@@ -7,3 +7,5 @@
 - Actual application screenshots are stored separately in `docs/screenshots/` and labeled as such in the README.
 
 The existing generated image was copied into the repository without modifying it. These assets contain no real candidate data and make no numerical accuracy or evaluation-score claims.
+
+The detailed journey holds each stage for six seconds, then animates a 0.9-second transition. Its complete ten-stage loop lasts 69 seconds. This reading-first pacing was requested by Janice; preserve it when regenerating the GIF.
