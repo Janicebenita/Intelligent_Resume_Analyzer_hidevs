@@ -183,3 +183,13 @@ The GitHub workflow runs lint/types/tests/evaluation/UI checks, then builds the 
 | Error handling | Typed input/storage errors; safe HTTP/CLI failures; malformed/oversized/encrypted fixtures |
 
 Built by **Janice Benita F**, with AI-assisted implementation and verification. The design and limitations are documented so the approach can be inspected and explained. A higher evaluation score is an aspiration, not a guarantee.
+
+---
+
+# 👩‍💻 Developer
+
+## Janice Benita F
+
+- 💼 LinkedIn: [https://linkedin.com/in/janice13](https://linkedin.com/in/janice13)
+- 💻 GitHub: [https://github.com/Janicebenita](https://github.com/Janicebenita)
+- 📧 Email: [janicebenita123@gmail.com](mailto:janicebenita123@gmail.com)
